@@ -7,7 +7,7 @@ function App() {
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4 logo">
             <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="../../favicon.ico" className="h-9" alt="Logo" />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">Qué Servicio?</span>
+                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">Qué Servicio...?</span>
             </a>
             
             <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -47,8 +47,6 @@ function App() {
     </nav>
 
     </div>
-      <h1 className="text-3xl font-bold underline">APP ROOT</h1>
-
      
       <form className="max-w-sm mx-auto">
         <label
