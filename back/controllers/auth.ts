@@ -1,25 +1,86 @@
-import Worker, { IWorker } from "../models/users";
+import User, { IUser, IWorker } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
+import jwt from 'jsonwebtoken';
 
-export const registerWorker = async (req: Request, res: Response): Promise<void> => {
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
-    const { name, email, password, province, city, category, phone }: IWorker = req.body;
+    const { name, email, password, phone, location }: IUser = req.body;
 
-    const worker = new Worker ({ name, email, password, province, city, category, phone });
+    const user = new User ({ name, email, password, phone, location  });
 
      const saltRounds = 10;
      const salt = bcryptjs.genSaltSync(saltRounds);
 
-     worker.password = bcryptjs.hashSync(password, salt);
-     await worker.save();
+     user.password = bcryptjs.hashSync(password, salt);
+     await user.save();
     
     res.status(201).json({
-        worker,
+        user,
     });
 };
 
-export const registerUser = async (req: Request, res: Response): Promise<void> => {
+export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+    const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
+    
+    if (!token) {
+        res.status(401).json({ message: 'Token de autenticación no proporcionado' });
+        return;
+    }
 
-}
- 
+    try {
+        const decodedToken = jwt.verify(token, 'pass?') as { userId: string }; //Definir firma del JWT para poder verificar y decodificar el token 
+        
+        const userId = decodedToken.userId;
+
+        const { category, img, desc }: IWorker = req.body;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+
+        if (user.worker) {
+            res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
+            return;
+        }
+
+        user.worker = { category, img, desc };
+
+        await user.save();
+
+        res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
+    }
+};
+
+/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
+    
+    const { category, img, desc }: IWorker = req.body;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+
+        if (user.worker) {
+            res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
+            return;
+        }
+
+        user.worker = { category, img, desc };
+
+        await user.save();
+
+        res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
+    }
+} */

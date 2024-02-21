@@ -1,17 +1,25 @@
 import { Model, Schema, model } from 'mongoose';
 
 export interface IWorker {
+    category: string;
+    img: string;
+    desc: string;
+
+}
+
+
+export interface IUser {
     name: string;
     email: string;
-    password: string;
-    province: string;
-    city: string;
-    category: string;
     phone: number;
+    password: string;
+    location: string;
+    worker?: IWorker;
     code?: string;
 }
 
-const userSchema = new Schema<IWorker>({
+
+const userSchema = new Schema<IUser>({
     name: {
         type: String,
         required: [true, "te faltó el nombre"]
@@ -20,25 +28,35 @@ const userSchema = new Schema<IWorker>({
         type: String,
         required: [true, "te faltó el email"]
     },
+    phone:{
+        type: Number,
+        required: [true, "te faltó el celular"]
+    },
     password: {
         type: String,
         required: [true, "te faltó la password"]
     },
-    province: {
+    location: {
         type: String,
-        required: [true, "faltó la provincia"]
+        required: [true, "faltó la ubicación"]
     },
-    city: {
-        type: String,
-        required: [true, "faltó la ciudad"]
-    },
-    category: {
-        type: String,
-        required: [true, "faltó la categoría"]
-    },
-    phone: {
-        type: Number,
-        required: [ true, "te faltó el teléfono"]
+    worker: {
+        type: [{
+            category: {
+                type: String,
+                required: true
+            },
+            img: {
+                type: String,
+                required: true
+            },
+            desc: {
+                type: String,
+                required: true
+            }
+
+        }],
+        required: false,
     },
 
      code:{
@@ -47,9 +65,11 @@ const userSchema = new Schema<IWorker>({
 });
 
 userSchema.methods.toJSON = function () {
-    const { __v, password, _id, code, ...worker } = this.toObject();
-    return worker;
+    const { __v, password, code, ...user } = this.toObject();
+    return user;
 };
 
-const User: Model<IWorker> = model<IWorker>("Usuario", userSchema);
+const User: Model<IUser> = model<IUser>("Usuario", userSchema);
 export default User;
+
+
