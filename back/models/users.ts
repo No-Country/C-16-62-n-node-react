@@ -5,9 +5,9 @@ export interface IWorker {
     email: string;
     password: string;
     province: string;
-    city: string,
-    category: string,
-    phone: number,
+    city: string;
+    category: string;
+    phone: number;
     code?: string;
 }
 
@@ -28,7 +28,7 @@ const workerSchema = new Schema<IWorker>({
         type: String,
         required: [true, "faltó la provincia"]
     },
-    city:{
+    city: {
         type: String,
         required: [true, "faltó la ciudad"]
     },
@@ -40,16 +40,16 @@ const workerSchema = new Schema<IWorker>({
         type: Number,
         required: [ true, "te faltó el teléfono"]
     },
-    
+
      code:{
         type: String
     }
 });
 
 workerSchema.methods.toJSON = function () {
-    const { __v, password, _id, ...usuario } = this.toObject();
-    return usuario;
+    const { __v, password, _id, code, ...worker } = this.toObject();
+    return worker;
 };
 
-const Usuario: Model<IWorker> = model<IWorker>("Trabajador", workerSchema);
-export default Usuario;
+const Worker: Model<IWorker> = model<IWorker>("Trabajador", workerSchema);
+export default Worker;
