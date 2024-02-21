@@ -18,3 +18,8 @@ export const registerWorker = async (req: Request, res: Response): Promise<void>
         worker,
     });
 };
+
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
+
+}
+ 

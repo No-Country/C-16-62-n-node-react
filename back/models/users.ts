@@ -11,7 +11,7 @@ export interface IWorker {
     code?: string;
 }
 
-const workerSchema = new Schema<IWorker>({
+const userSchema = new Schema<IWorker>({
     name: {
         type: String,
         required: [true, "te faltó el nombre"]
@@ -32,7 +32,7 @@ const workerSchema = new Schema<IWorker>({
         type: String,
         required: [true, "faltó la ciudad"]
     },
-    category:{
+    category: {
         type: String,
         required: [true, "faltó la categoría"]
     },
@@ -46,10 +46,10 @@ const workerSchema = new Schema<IWorker>({
     }
 });
 
-workerSchema.methods.toJSON = function () {
+userSchema.methods.toJSON = function () {
     const { __v, password, _id, code, ...worker } = this.toObject();
     return worker;
 };
 
-const Worker: Model<IWorker> = model<IWorker>("Trabajador", workerSchema);
-export default Worker;
+const User: Model<IWorker> = model<IWorker>("Usuario", userSchema);
+export default User;
