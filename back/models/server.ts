@@ -1,17 +1,21 @@
 import express, {Express } from 'express'
 import { connectDB } from '../database/config';
 import authRoutes from "../routes/auth"
+import workerRoutes from "../routes/worker"
 import cors from "cors"
 
 export class Server {
     app: Express;
     port: string | number | undefined;
     authPath: string;
+    workerPath: string;
 
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
-        this.authPath = '/auth'
+        this.authPath = '/auth';
+        this.workerPath = "/worker";
+
         this.conectarDB();
         this.middlewares();
         this.routes();
@@ -29,6 +33,7 @@ export class Server {
 
     routes(): void {
         this.app.use(this.authPath, authRoutes);
+        this.app.use(this.workerPath, workerRoutes);
     }
     listen(): void {
         this.app.listen(this.port, () => {

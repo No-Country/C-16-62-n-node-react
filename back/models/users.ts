@@ -1,11 +1,4 @@
-import { Model, Schema, model } from 'mongoose';
-
-export interface IWorker {
-    category: string;
-    img: string;
-    desc: string;
-
-}
+import { Model, Schema, Types, model } from 'mongoose';
 
 
 export interface IUser {
@@ -14,7 +7,6 @@ export interface IUser {
     phone: number;
     password: string;
     location: string;
-    worker?: IWorker;
     code?: string;
 }
 
@@ -40,25 +32,6 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "faltó la ubicación"]
     },
-    worker: {
-        type: [{
-            category: {
-                type: String,
-                required: true
-            },
-            img: {
-                type: String,
-                required: true
-            },
-            desc: {
-                type: String,
-                required: true
-            }
-
-        }],
-        required: false,
-    },
-
      code:{
         type: String
     }
@@ -71,5 +44,4 @@ userSchema.methods.toJSON = function () {
 
 const User: Model<IUser> = model<IUser>("Usuario", userSchema);
 export default User;
-
 

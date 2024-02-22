@@ -1,11 +1,12 @@
-import User, { IUser, IWorker } from "../models/users";
+import User, { IUser } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 import jwt from 'jsonwebtoken';
+import Worker, { IWorker } from "../models/worker";
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
-    const { name, email, password, phone, location }: IUser = req.body;
+    const { name, email, phone, password, location }: IUser = req.body;
 
     const user = new User ({ name, email, password, phone, location  });
 
@@ -20,7 +21,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     });
 };
 
-export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
     
     if (!token) {
@@ -56,7 +57,7 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
 };
-
+*/
 export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
     const { email, password } :IUser = req.body
@@ -76,8 +77,6 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
             res.status(400).json({
                 msg: "la contraseña es incorrecta"
             });
-
-            
             
         }
         
@@ -98,11 +97,13 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 }
 
-/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+ export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
     
-    const { category, img, desc }: IWorker = req.body;
-
+    const { category, img, desc, user }: IWorker = req.body;
+    const worker = new Worker ({ img, category, desc, user });
+    console.log(userId)
+    console.log(worker)
     try {
         const user = await User.findById(userId);
 
@@ -111,17 +112,15 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
             return;
         }
 
-        if (user.worker) {
+        if (user) {
             res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
             return;
         }
 
-        user.worker = { category, img, desc };
-
-        await user.save();
+        await worker.save();
 
         res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
     } catch (error) {
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
-} */
+}
