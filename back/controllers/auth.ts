@@ -57,6 +57,47 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
     }
 };
 
+export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
+
+    const { email, password } :IUser = req.body
+
+    try {
+        const user = await User.findOne({ email })
+        if(!user){
+            res.status(400).json({
+                msg: "no se encontró el usuario en la base de datos"
+            });
+            return
+        }
+
+        const validatePassword = bcryptjs.compareSync(password, user.password)
+
+        if(!validatePassword){
+            res.status(400).json({
+                msg: "la contraseña es incorrecta"
+            });
+
+            
+            
+        }
+        
+
+        res.json ({
+            user
+
+        })
+
+
+    } catch (error) {
+        console.log("error")
+        res.status(500).json({
+            msg: "error en el servidor"
+        })
+        
+    }
+
+}
+
 /* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
     
