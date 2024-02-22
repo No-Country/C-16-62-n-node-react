@@ -1,9 +1,7 @@
 import { Router } from "express";
 import { registerUser, addWorkerData } from '../controllers/auth'; 
 import { check } from "express-validator"; 
-import { collectErrors } from "../middlewares/collectErrors"; 
-import { createCheckSchema } from "express-validator/src/middlewares/schema";
-import { register } from "module";
+import * as collectErrors from "../middlewares/collectErrors"; 
 
 
 
@@ -16,8 +14,9 @@ router.post("/registerUser", [
     check ("password", "la contraseña debe contener al menos 6 caracteres").isLength({min: 6}),
     check ("location", "te faltó la locación").not().isEmpty(),
     
-//    check ("email").custom(emailExist),
-    collectErrors
+//  (falta añadir helpers)  check ("email").custom(emailExist),
+
+    collectErrors.collectErrors
 ], registerUser)
 
 router.post("addWorkerData", [
@@ -25,7 +24,7 @@ router.post("addWorkerData", [
     check ("img", "Necesitas subir una imagen").not().isEmpty(),
     check ("desc", "Necesitas añadir una descripción").not().isEmpty(),
 
-    collectErrors
+    collectErrors.collectErrors
 ], addWorkerData)
 
 
