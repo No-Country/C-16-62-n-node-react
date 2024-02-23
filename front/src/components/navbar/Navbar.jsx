@@ -7,8 +7,7 @@ function Navbar() {
       <nav class="bg-[#1995AD] border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            {/* <img  src={Logo} class="h-12" /> */}
-            <span>LOGO</span>
+            <img  src={Logo} class="w-[150px]" />
           </a>
           <div
             class=" flex flex-row-reversew-full md:block md:w-auto"
@@ -21,7 +20,7 @@ function Navbar() {
                   class="block py-2 px-3 text-black rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 hover:underline"
                   aria-current="page"
                 >
-                  Iniciar Sesion
+                  Iniciar Sesión
                 </a>
               </li>
               <li>
