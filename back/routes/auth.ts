@@ -24,7 +24,7 @@ router.post("/login", [
     collectErrors
 ], logIn)
 
-router.post("/worker", [
+router.patch("/worker", [
     check ("category", "te faltó la categoría").not().isEmpty(),
     check ("img", "Necesitas subir una imagen").not().isEmpty(),
     check ("desc", "Necesitas añadir una descripción").not().isEmpty(),

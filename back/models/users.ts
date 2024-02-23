@@ -14,7 +14,7 @@ export interface IUser {
     phone: number;
     password: string;
     location: string;
-    worker?: IWorker;
+// worker?: IWorker;
     code?: string;
 }
 
@@ -40,8 +40,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "faltó la ubicación"]
     },
-    worker: {
-        type: [{
+    /* worker:{
             category: {
                 type: String,
                 required: true
@@ -54,11 +53,7 @@ const userSchema = new Schema<IUser>({
                 type: String,
                 required: true
             }
-
-        }],
-        required: false,
-    },
-
+    }, */
      code:{
         type: String
     }
