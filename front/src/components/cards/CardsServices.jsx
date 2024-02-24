@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card } from 'flowbite-react';
+import { Avatar, Button, Card } from 'flowbite-react';
 
 
 
@@ -8,13 +8,19 @@ function CardsServices()
   return (
     <Card className="max-w-sm">
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Noteworthy technology acquisitions 2021
+        Balvanera
       </h5>
+      <Avatar img="/images/people/profile-picture-5.jpg" bordered color="success">
+      <div className="space-y-1 font-medium dark:text-white">
+        <div>Franco Rodriguez</div>
+        <div className="text-sm text-gray-500 dark:text-gray-400">Joined in August 2014</div>
+      </div>
+    </Avatar>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+        Gacista
       </p>
       <Button>
-        Read more
+        Ver Mas
         <svg className="-mr-1 ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
           <path
             fillRule="evenodd"

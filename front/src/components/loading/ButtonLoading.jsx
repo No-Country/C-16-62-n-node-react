@@ -1,5 +1,5 @@
-import Spinner from "react-bootstrap/Spinner";
-import Button from "react-bootstrap/Button";
+import {Spinner} from 'flowbite-react';
+import {Button} from 'flowbite-react';
 
 function ButtonLoading({
   loading,

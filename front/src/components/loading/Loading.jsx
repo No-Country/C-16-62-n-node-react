@@ -1,4 +1,4 @@
-import Spinner from "react-bootstrap/Spinner";
+import { Spinner } from 'flowbite-react';
 
 const styles = {
   spinner: {
@@ -11,7 +11,7 @@ const styles = {
 function Loading({ loading, children }) {
   if (loading) {
     return (
-      <Spinner animation="border" variant="primary" role="status" style={styles.spinner}>
+      <Spinner aria-label="Default status example" style={styles.spinner}>
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     );
