@@ -79,12 +79,10 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
             
         }
         
-
         res.json ({
             user
 
         })
-
 
     } catch (error) {
         console.log("error")

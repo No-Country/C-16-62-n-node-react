@@ -32,8 +32,6 @@ router.patch("/worker", [
     collectErrors
 ], addWorkerData)
 
-
-
 export default router 
     
 
