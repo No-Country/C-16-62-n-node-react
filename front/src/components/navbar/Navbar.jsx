@@ -1,42 +1,60 @@
-import Logo from "../../assets/logo.svg"
+import Logo from "../../assets/logo.svg";
+import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
 
-
-function Navbar() {
+function NavBar() {
   return (
     <>
-      <nav class="bg-[#1995AD] border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img  src={Logo} class="w-[150px]" />
-          </a>
-          <div
-            class=" flex flex-row-reversew-full md:block md:w-auto"
-            id="navbar-default"
-          >
-            <ul class="font-medium flex">
-              <li>
-                <a
+      <Navbar className="bg-[#1995AD] border-gray-200 dark:bg-gray-900" fluid rounded>
+        <Navbar.Brand href="#">
+          <img
+            src={Logo}
+            className="mr-3 h-16 sm:h-9 "
+            
+            alt="Contratame Logo"
+          />
+
+          
+        </Navbar.Brand>
+        <div className="flex md:order-2">
+        <a
                   href="/login"
                   class="block py-2 px-3 text-black rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 hover:underline"
                   aria-current="page"
                 >
                   Iniciar Sesión
                 </a>
-              </li>
-              <li>
-                <a
-                  href="/register"
-                  class="block py-2 px-3 text-white rounded hover:underline md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Registarse
-                </a>
-              </li>
-            </ul>
-          </div>
+
+          <Button>Registrar</Button>
+          {/* <div className="flex md:order-2">
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar
+                alt="User settings"
+                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                rounded
+              />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">Bonnie Green</span>
+              <span className="block truncate text-sm font-medium">
+                name@flowbite.com
+              </span>
+            </Dropdown.Header>
+            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item>Settings</Dropdown.Item>
+            <Dropdown.Item>Earnings</Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item>Sign out</Dropdown.Item>
+          </Dropdown>
+        </div> */}
         </div>
-      </nav>
+        
+      </Navbar>
     </>
   );
 }
 
-export default Navbar;
+export default NavBar;

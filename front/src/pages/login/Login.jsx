@@ -53,7 +53,7 @@ const Login = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
-        <div className="mb-5 mt-20">
+        <div className="mb-2 block">
           <label
             htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -70,7 +70,7 @@ const Login = () => {
             required
           />
         </div>
-        <div className="mb-5">
+        <div className="mb-2 block">
           <label
             htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -95,7 +95,7 @@ const Login = () => {
               checked={rememberMe}
               onChange={handleRememberMeChange}
               value=""
-              class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
             />
           </div>
           <label
