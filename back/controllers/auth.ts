@@ -94,7 +94,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 }
 
-export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
     const { category, img, desc }: IWorker = req.body;
 
@@ -107,13 +107,13 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         }
 
         // Verifica si el usuario ya tiene datos de trabajador
-        if (user.worker) {
+        if (user) {
             res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
             return;
         }
 
         // Agrega los datos del trabajador al usuario
-        user.worker = { category, img, desc };
+        user = { category, img, desc };
 
         await user.save();
 
@@ -122,3 +122,4 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
 };
+*/
