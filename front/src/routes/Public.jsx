@@ -5,6 +5,7 @@ import Register from "../pages/register/Register";
 import NotFound from "../pages/notfound/NotFound";
 import FormService from "../pages/services/FormService";
 import Profile from "../pages/profile/Profile";
+import Validate from "../pages/validate/validate";
 
 
 
@@ -18,6 +19,8 @@ function Public() {
         <Route path="/forms/services" element={<FormService />} />              
         <Route path="*" element={<NotFound />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/validate" element={< Validate />} />
+
 
       </Routes>
     )

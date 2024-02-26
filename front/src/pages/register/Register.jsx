@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import "../../style/componentsStyle/Register.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../axios/axios.user";
 
 function Register() {
@@ -12,6 +12,7 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [registeredUser, setRegisteredUser] = useState(null);
+  const navigate = useNavigate("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +21,20 @@ function Register() {
       alert("Las contraseñas no coinciden");
       return;
     }
+
+    if (password.length < 6) {
+      alert("La contraseña es demasiado corta");
+      return;
+    }
+
+
+
     try {
       const data = await createUser(name, email, phone, password);
       console.log("Usuario creado correctamente", data);
       setRegisteredUser(data.user);
+      alert("Te has registrado correctamente");
+      navigate('/validate');
     } catch (error) {
       console.error("Error en el registro", error);
       alert("Algo sucedió mal durante el registro.");
