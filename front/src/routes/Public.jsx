@@ -4,6 +4,7 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";        
 import NotFound from "../pages/notfound/NotFound";
 import FormService from "../pages/services/FormService";
+import Profile from "../pages/profile/Profile";
 
 
 
@@ -16,6 +17,7 @@ function Public() {
         <Route path="/register" element={<Register />} />
         <Route path="/forms/services" element={<FormService />} />              
         <Route path="*" element={<NotFound />} />
+        <Route path="/profile" element={<Profile />} />
 
       </Routes>
     )

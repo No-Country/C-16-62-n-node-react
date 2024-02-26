@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.svg"
 
 const Footer = () => {
   return (
-    <footer class="bg-[#1995AD] text-white shadow dark:bg-gray-900 mt-[30vh]">
+    <footer class="bg-[#1995AD] text-white shadow mt-[15vh]">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-center sm:justify-between">
             <a href="/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -31,4 +31,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;
