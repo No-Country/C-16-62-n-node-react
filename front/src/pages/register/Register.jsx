@@ -2,20 +2,38 @@ import React, { useState } from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import "../../style/componentsStyle/Register.css";
 import { Link } from "react-router-dom";
+import { createUser } from "../../axios/axios.user";
 
 function Register() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
+  const [registeredUser, setRegisteredUser] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== repeatPassword) {
       alert("Las contraseñas no coinciden");
       return;
     }
-
-  
+    try {
+      const { user, token } = await createUser(
+        name, 
+        email,
+        phone,
+        password
+      );
+      console.log("se creo correctamente el usuario")
+      setRegisteredUser(user);
+    } catch (error) {
+      setError(error);
+      alert("Algo sucedio mal")
+      console.log(error)
+    }
   };
 
   return (
@@ -28,6 +46,8 @@ function Register() {
           placeholder="Nombre"
           required
           shadow
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <div className="pt-3">
           <TextInput
@@ -36,6 +56,8 @@ function Register() {
             placeholder="Correo Electrónico"
             required
             shadow
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="pt-3">
@@ -67,6 +89,8 @@ function Register() {
             placeholder="Número de teléfono"
             required
             shadow
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </div>
         <div className="flex gap-2 p-4">
