@@ -15,24 +15,19 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (password !== repeatPassword) {
       alert("Las contraseñas no coinciden");
       return;
     }
     try {
-      const { user, token } = await createUser(
-        name, 
-        email,
-        phone,
-        password
-      );
-      console.log("se creo correctamente el usuario")
-      setRegisteredUser(user);
+      const data = await createUser(name, email, phone, password);
+      console.log("Usuario creado correctamente", data);
+      setRegisteredUser(data.user);
     } catch (error) {
-      setError(error);
-      alert("Algo sucedio mal")
-      console.log(error)
+      console.error("Error en el registro", error);
+      alert("Algo sucedió mal durante el registro.");
+      setError("Error al registrar. Por favor, inténtalo de nuevo.");
     }
   };
 

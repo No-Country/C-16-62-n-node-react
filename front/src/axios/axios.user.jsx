@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 
-export const createUser = async (name, email, password, phone) => {
+export const createUser = async (name, email, phone, password) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/register`, {
       name,
@@ -11,7 +11,8 @@ export const createUser = async (name, email, password, phone) => {
     });
     return data;
   } catch (error) {
-    return alert(error.response.data.errors[0].msg);
+    console.error("Error creating user:", error);
+    throw error;
   }
 };
 
