@@ -52,37 +52,26 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="max-w-sm mx-auto">
+      <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6">
         <div className="mb-2 block">
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Email
-          </label>
+          <h3 class="text-2xl font-bold p-5">INICIAR SESIÓN</h3>
           <input
             type="email"
             id="email"
             value={email}
             onChange={handleEmailChange}
-            className="bg-[#BCBABE] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Mail"
             required
           />
         </div>
         <div className="mb-2 block">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Contraseña
-          </label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={handlePasswordChange}
-            className="bg-[#BCBABE] border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             placeholder="Contraseña"
             required
           />
@@ -108,7 +97,7 @@ const Login = () => {
 
         <button
           type="submit"
-          className="text-white bg-[#1995AD] hover:bg-[#1994adbb] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"
         >
           Iniciar sesión
         </button>

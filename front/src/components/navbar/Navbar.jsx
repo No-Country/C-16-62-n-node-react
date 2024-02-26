@@ -1,30 +1,28 @@
 import Logo from "../../assets/logo.svg";
 import { Avatar, Button, Dropdown, Navbar } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
     <>
-      <Navbar className="bg-[#1995AD] border-gray-200 dark:bg-gray-900" fluid rounded>
-        <Navbar.Brand href="#">
-          <img
-            src={Logo}
-            className="mr-3 h-16 sm:h-9 "
-            
-            alt="Contratame Logo"
-          />
-
-          
+      <Navbar
+        className="bg-[#1995AD] border-gray-200 dark:bg-gray-900"
+        fluid
+        rounded
+      >
+        <Navbar.Brand href="/">
+          <img src={Logo} className="mr-3 h-16 sm:h-9 " alt="Contratame Logo" />
         </Navbar.Brand>
         <div className="flex md:order-2">
-        <a
-                  href="/login"
-                  class="block py-2 px-3 text-black rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500 hover:underline"
-                  aria-current="page"
-                >
-                  Iniciar Sesión
-                </a>
+          <Link
+           to="/login"
+           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+            aria-current="page"
+          >
+            Iniciar Sesión
+          </Link>
 
-          <Button>Registrar</Button>
+          <Link to="/register" className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Registrar</Link>
           {/* <div className="flex md:order-2">
           <Dropdown
             arrowIcon={false}
@@ -51,7 +49,6 @@ function NavBar() {
           </Dropdown>
         </div> */}
         </div>
-        
       </Navbar>
     </>
   );

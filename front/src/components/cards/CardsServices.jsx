@@ -17,7 +17,7 @@ function CardsServices()
       </div>
     </Avatar>
       <p className="font-normal text-gray-700 dark:text-gray-400">
-        Gacista
+        Gasista
       </p>
       <Button>
         Ver Mas

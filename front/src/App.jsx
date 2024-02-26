@@ -1,8 +1,8 @@
 import './App.css'
 import NavBar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
 import { BrowserRouter as Router } from "react-router-dom";
 import Public from './routes/Public';
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
       <Router>
         < NavBar />
           < Public />
-        < Footer />
+         <Footer />
       </Router>
     </>
   )
