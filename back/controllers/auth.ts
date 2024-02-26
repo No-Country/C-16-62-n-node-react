@@ -79,10 +79,12 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
             
         }
         
+
         res.json ({
             user
 
         })
+
 
     } catch (error) {
         console.log("error")
@@ -94,7 +96,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 }
 
-/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
     const { category, img, desc, city, address }: IWorker = req.body;
 
@@ -108,7 +110,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 
         // Agrega los datos del trabajador al usuario
-        user.worker = { category, img, desc };
+        user.worker = { category, img, desc, city, address };
 
         await user.save();
 
@@ -117,4 +119,3 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
 };
-*/

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, logIn } from '../controllers/auth'; 
+import { registerUser, logIn, addWorkerData } from '../controllers/auth'; 
 import { check } from "express-validator"; 
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { emailExist, emailNotExist } from "../helpers/validations";
