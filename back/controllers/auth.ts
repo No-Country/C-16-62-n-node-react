@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
-    const { name, email, password, phone, location }: IUser = req.body;
+    const { name, email, phone, password, location }: IUser = req.body;
 
     const user = new User ({ name, email, password, phone, location  });
 
@@ -20,7 +20,7 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     });
 };
 
-export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
     
     if (!token) {
@@ -56,10 +56,48 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
 };
+*/
+export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
-/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } :IUser = req.body
+
+    try {
+        const user = await User.findOne({ email })
+        if(!user){
+            res.status(400).json({
+                msg: "no se encontró el usuario en la base de datos"
+            });
+            return
+        }
+
+        const validatePassword = bcryptjs.compareSync(password, user.password)
+
+        if(!validatePassword){
+            res.status(400).json({
+                msg: "la contraseña es incorrecta"
+            });
+            
+        }
+        
+
+        res.json ({
+            user
+
+        })
+
+
+    } catch (error) {
+        console.log("error")
+        res.status(500).json({
+            msg: "error en el servidor"
+        })
+        
+    }
+
+}
+
+export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
-    
     const { category, img, desc }: IWorker = req.body;
 
     try {
@@ -70,11 +108,13 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
             return;
         }
 
+        // Verifica si el usuario ya tiene datos de trabajador
         if (user.worker) {
             res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
             return;
         }
 
+        // Agrega los datos del trabajador al usuario
         user.worker = { category, img, desc };
 
         await user.save();
@@ -83,4 +123,4 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
     } catch (error) {
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
     }
-} */
+};
