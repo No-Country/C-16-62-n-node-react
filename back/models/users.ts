@@ -4,7 +4,8 @@ export interface IWorker {
     category: string;
     img: string;
     desc: string;
-
+    city: string;
+    address: string;
 }
 
 
@@ -13,7 +14,6 @@ export interface IUser {
     email: string;
     phone: number;
     password: string;
-    location: string;
     worker?: IWorker;
     code?: string;
 }
@@ -36,29 +36,23 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "te faltó la password"]
     },
-    location: {
-        type: String,
-        required: [true, "faltó la ubicación"]
-    },
-    worker: {
-        type: [{
+     worker:{
             category: {
                 type: String,
-                required: true
             },
             img: {
                 type: String,
-                required: true
             },
             desc: {
                 type: String,
-                required: true
+            },
+            city:{
+                type: String,
+            },
+            address:{
+                type: String,
             }
-
-        }],
-        required: false,
-    },
-
+    }, 
      code:{
         type: String
     }

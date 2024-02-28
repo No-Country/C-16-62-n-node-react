@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken';
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
-    const { name, email, phone, password, location }: IUser = req.body;
+    const { name, email, phone, password }: IUser = req.body;
 
-    const user = new User ({ name, email, password, phone, location  });
+    const user = new User ({ name, email, password, phone });
 
      const saltRounds = 10;
      const salt = bcryptjs.genSaltSync(saltRounds);
@@ -98,7 +98,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
-    const { category, img, desc }: IWorker = req.body;
+    const { category, img, desc, city, address }: IWorker = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -108,14 +108,9 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
             return;
         }
 
-        // Verifica si el usuario ya tiene datos de trabajador
-        if (user.worker) {
-            res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
-            return;
-        }
 
         // Agrega los datos del trabajador al usuario
-        user.worker = { category, img, desc };
+        user.worker = { category, img, desc, city, address };
 
         await user.save();
 
