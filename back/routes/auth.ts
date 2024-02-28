@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, logIn, addWorkerData, logIn } from '../controllers/auth'; 
+import { registerUser, logIn, addWorkerData, verifyUser } from '../controllers/auth'; 
 import { check } from "express-validator"; 
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { createCheckSchema } from "express-validator/src/middlewares/schema";
@@ -14,18 +14,36 @@ router.post("/registerUser", [
     check ("email", "faltó el email").isEmail(),
     check ("phone", "te faltó el teléfono").isNumeric(),
     check ("password", "la contraseña debe contener al menos 6 caracteres").isLength({min: 6}),
+    check ("location", "te faltó la locación").not().isEmpty(),
     
 //    check ("email").custom(emailExist),
     collectErrors
 ], registerUser)
 
-router.post("addWorkerData", [
-    check ("category", "te faltó la categoría").not().isEmpty(),
-    check ("img", "Necesitas subir una imagen").not().isEmpty(),
-    check ("desc", "Necesitas añadir una descripción").not().isEmpty(),
+router.post("/login", [
+    check ("email", "faltó el email").isEmail(),
+    check ("password", "la contraseña debe contener al menos 6 carácteres").isLength({ min: 6 }),
+    check("email").custom(emailNotExist),
+    collectErrors
+], logIn)
+
+router.patch("/verify", [
+      check("email", "El email es requerido").isEmail(),
+      check("code", "El código de verificación es requerido").not().isEmpty(),
+      collectErrors,
+    ],
+    verifyUser
+  );
+
+router.post("/worker/:userId", [
+    check("category", "te faltó la categoría").not().isEmpty(),
+    check("img", "Necesitas subir una imagen").not().isEmpty(),
+    check("desc", "Necesitas añadir una descripción").not().isEmpty(),
+    check("city", "Faltó la ciudad").not().isEmpty(),
+    check("address", "Faltó la dirección").not().isEmpty(),
 
     collectErrors
-], addWorkerData)
+], addWorkerData);
 
 
 export default router 
