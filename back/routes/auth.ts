@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, logIn, addWorkerData } from '../controllers/auth'; 
+import { registerUser, logIn, addWorkerData, verifyUser } from '../controllers/auth'; 
 import { check } from "express-validator"; 
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { emailExist, emailNotExist } from "../helpers/validations";
@@ -23,6 +23,14 @@ router.post("/login", [
     collectErrors
 ], logIn)
 
+router.patch("/verify", [
+      check("email", "El email es requerido").isEmail(),
+      check("code", "El código de verificación es requerido").not().isEmpty(),
+      collectErrors,
+    ],
+    verifyUser
+  );
+
 router.post("/worker/:userId", [
     check("category", "te faltó la categoría").not().isEmpty(),
     check("img", "Necesitas subir una imagen").not().isEmpty(),
@@ -32,8 +40,6 @@ router.post("/worker/:userId", [
 
     collectErrors
 ], addWorkerData);
-
-
 
 
 export default router 

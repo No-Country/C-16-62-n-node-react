@@ -16,6 +16,7 @@ export interface IUser {
     password: string;
     worker?: IWorker;
     code?: string;
+    verified?: boolean;
 }
 
 
@@ -55,6 +56,10 @@ const userSchema = new Schema<IUser>({
     }, 
      code:{
         type: String
+    },
+    verified:{
+        type:Boolean,
+        default:false
     }
 });
 
