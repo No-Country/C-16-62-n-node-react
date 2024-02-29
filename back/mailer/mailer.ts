@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 })
 
 export const sendEmail =async (to:string, code: string ):Promise<void> => {
-    console.log( to, code)
+    
     try{
         const mailOptions={
             from: '"Contratame App" tiendagameoverarg@gmail.com',
@@ -28,6 +28,8 @@ export const sendEmail =async (to:string, code: string ):Promise<void> => {
         await transporter.sendMail(mailOptions)
         console.log("Correo electrónico enviado")
     }catch(error){
+        console.log( to, code)
+        console.log (transporter)
         console.error("Error al enviar el correo electrónico", error)
     }
 }

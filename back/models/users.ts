@@ -2,10 +2,6 @@ import { Model, Schema, model } from 'mongoose';
 
 export interface IWorker {
     category: string;
-    img: {
-        data: Buffer,
-        contentType: String
-      },
     desc: string;
     province: string;
     city: string;
@@ -42,14 +38,10 @@ const userSchema = new Schema<IUser>({
             category: {
                 type: String,
             },
-            img: {
-                data: Buffer,
-                contentType: String,
-            },
             desc: {
                 type: String,
             },
-            province : {
+            province: {
                 type: String,
             },
             city:{
