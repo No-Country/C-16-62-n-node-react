@@ -1,14 +1,23 @@
 import React from "react";
 import CardsServices from "../../components/cards/CardsServices";
 import Filter from "../../components/header/Filter";
+import Banners from "../../components/gallery/Banners";
+import Carusel from "../../components/gallery/Carusel";
+import GerStart from "../../components/footer/GerStart";
+import TogleLegislation from "../../components/lesgilation/TogleLegislation";
+import Marketing from "../../components/gallery/Marketing";
 
-const HomePage = () => {
+function HomePage(){
   return (
     <>
       <div>
+        <Banners />
+        <TogleLegislation />
         <Filter />
         <CardsServices />
-        <h1>Servicios Online</h1>
+        <GerStart />
+        <Carusel />
+        <Marketing />
       </div>
     </>
   );
