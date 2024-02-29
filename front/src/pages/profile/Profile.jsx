@@ -3,6 +3,7 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useAuth } from "../../context/AuthContext";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../components/footer/Footer";
 
 const reviews = [
   {
@@ -125,7 +126,7 @@ const Profile = () => {
           </Modal.Body>
         </Modal>
       </div>
-    </div>
+   </div>
   );
 };
 

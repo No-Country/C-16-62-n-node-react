@@ -28,3 +28,19 @@ export const loginUser = async (email, password) => {
     return alert("usuario y/o contraseña incorrecta");
   }
 };
+
+export const createWorker = async (_id, category, img, desc, province, address) => {
+  try {
+    const { data } = await axios.post(`${BASE_URL}/auth/worker/${_id}`, {
+      category,
+      img,
+      desc,
+      province,
+      address,
+    });
+    return data;
+  } catch (error) {
+    console.error("Error creating worker:", error);
+    throw error;
+  }
+};
