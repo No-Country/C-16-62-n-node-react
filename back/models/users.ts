@@ -2,7 +2,10 @@ import { Model, Schema, model } from 'mongoose';
 
 export interface IWorker {
     category: string;
-    img: string;
+    img: {
+        data: Buffer,
+        contentType: String
+      },
     desc: string;
     province: string;
     city: string;
@@ -43,7 +46,8 @@ const userSchema = new Schema<IUser>({
                 type: String,
             },
             img: {
-                type: String,
+                data: Buffer,
+                contentType: String,
             },
             desc: {
                 type: String,
