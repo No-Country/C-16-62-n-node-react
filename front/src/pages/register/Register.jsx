@@ -3,6 +3,7 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import "../../style/componentsStyle/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser } from "../../axios/axios.user";
+import { useAuth } from "../../context/AuthContext";
 
 function Register() {
   const [name, setName] = useState("");
@@ -12,11 +13,12 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
   const [registeredUser, setRegisteredUser] = useState(null);
+  const { login } = useAuth();
   const navigate = useNavigate("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (password !== repeatPassword) {
       alert("Las contraseñas no coinciden");
       return;
@@ -27,17 +29,23 @@ function Register() {
       return;
     }
 
-
-
     try {
       const data = await createUser(name, email, phone, password);
-      console.log("Usuario creado correctamente", data);
-      setRegisteredUser(data.user);
+
       alert("Te has registrado correctamente");
-      navigate('/validate');
+      navigate("/validate");
     } catch (error) {
       console.error("Error en el registro", error);
-      alert("Algo sucedió mal durante el registro.");
+      if (error.response && error.response.status === 400) {
+        alert(
+          "El correo electrónico ya está registrado. Por favor, utiliza otro correo."
+        );
+      } else {
+        alert(
+          "Algo sucedió mal durante el registro. Por favor, inténtalo de nuevo."
+        );
+      }
+
       setError("Error al registrar. Por favor, inténtalo de nuevo.");
     }
   };
@@ -112,7 +120,7 @@ function Register() {
           </Label>
         </div>
         <button
-        onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           type="submit"
           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"
         >

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../axios/axios.user";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+  const { login } = useAuth();
 
   useEffect(() => {
     const storedRememberMe = localStorage.getItem("rememberMe") === "true";
@@ -38,8 +41,9 @@ const Login = () => {
 
     try {
       const response = await loginUser(email, password);
-      console.log("Login exitoso:", response);
 
+      login(response.user); 
+      
       if (rememberMe) {
         localStorage.setItem("rememberMe", "true");
         localStorage.setItem("email", email);
@@ -50,12 +54,13 @@ const Login = () => {
         localStorage.removeItem("password");
       }
 
-      alert("Has iniciado sesión correctamente")
+      setAuthenticatedUser(response.user);
 
-      navigate("/"); 
+      alert("Has iniciado sesión correctamente");
+      navigate("/");
     } catch (error) {
-      console.error("Error en el login:", error);
-      setError("Error al iniciar sesión, verifica tus credenciales"); 
+      console.error("Error en el inicio de sesión:", error);
+      setError("Error al iniciar sesión, verifica tus credenciales");
     }
   };
 
@@ -103,13 +108,12 @@ const Login = () => {
             Recordarme
           </label>
         </div>
-
         <button
           type="submit"
           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"
         >
           Iniciar sesión
-        </button>
+        </button>{" "}
       </form>
     </>
   );
