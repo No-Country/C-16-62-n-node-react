@@ -1,6 +1,6 @@
 import React from "react";
 
-function Banners() {
+function Banners(){
   return (
     <>
       <div>
