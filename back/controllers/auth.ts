@@ -21,6 +21,8 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
         user.code = newCode
 
      await user.save();
+
+     console.log(email, newCode)
      await sendEmail(email, newCode)
     
     res.status(201).json({
@@ -147,7 +149,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
-    const { category, img, desc, city, address }: IWorker = req.body;
+    const { category, img, desc, province, city, address }: IWorker = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -159,7 +161,7 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
 
 
         // Agrega los datos del trabajador al usuario
-        user.worker = { category, img, desc, city, address };
+        user.worker = { category, img, desc, city, province, address };
 
         await user.save();
 

@@ -4,8 +4,9 @@ export interface IWorker {
     category: string;
     img: string;
     desc: string;
+    province: string;
     city: string;
-    address: string;
+    address?: string;
 }
 
 
@@ -18,7 +19,7 @@ export interface IUser {
     code?: string;
     verified?: boolean;
 }
-
+    
 
 const userSchema = new Schema<IUser>({
     name: {
@@ -45,6 +46,9 @@ const userSchema = new Schema<IUser>({
                 type: String,
             },
             desc: {
+                type: String,
+            },
+            province : {
                 type: String,
             },
             city:{
