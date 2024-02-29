@@ -2,15 +2,16 @@ import { Model, Schema, model } from 'mongoose';
 
 export interface IWorker {
     category: string;
-    img: string;
+    img: {
+        data: Buffer;
+        contentType: string;
+    };
     desc: string;
     province: string;
     city: string;
     address?: string;
 }
-
-
-export interface IUser {
+export interface IUser extends Document {
     name: string;
     email: string;
     phone: number;
@@ -19,7 +20,6 @@ export interface IUser {
     code?: string;
     verified?: boolean;
 }
-    
 
 const userSchema = new Schema<IUser>({
     name: {
@@ -30,7 +30,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "te faltó el email"]
     },
-    phone:{
+    phone: {
         type: Number,
         required: [true, "te faltó el celular"]
     },
@@ -38,32 +38,33 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "te faltó la password"]
     },
-     worker:{
-            category: {
-                type: String,
-            },
-            img: {
-                type: String,
-            },
-            desc: {
-                type: String,
-            },
-            province : {
-                type: String,
-            },
-            city:{
-                type: String,
-            },
-            address:{
-                type: String,
-            }
-    }, 
-     code:{
+    worker: {
+        category: {
+            type: String,
+        },
+        img: {
+            data: Buffer,
+            contentType: String,
+        },
+        desc: {
+            type: String,
+        },
+        province: {
+            type: String,
+        },
+        city: {
+            type: String,
+        },
+        address: {
+            type: String,
+        }
+    },
+    code: {
         type: String
     },
-    verified:{
-        type:Boolean,
-        default:false
+    verified: {
+        type: Boolean,
+        default: false
     }
 });
 
