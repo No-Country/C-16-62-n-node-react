@@ -1,7 +1,9 @@
 import User, { IUser, IWorker } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
+import randomstring from "randomstring"
 import jwt from 'jsonwebtoken';
+import { sendEmail } from "../mailer/mailer";
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
@@ -13,12 +15,61 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
      const salt = bcryptjs.genSaltSync(saltRounds);
 
      user.password = bcryptjs.hashSync(password, salt);
+
+     const newCode = randomstring.generate(6);
+
+        user.code = newCode
+
      await user.save();
+
+     console.log(email, newCode)
+     await sendEmail(email, newCode)
     
     res.status(201).json({
         user,
     });
 };
+
+export const verifyUser =async (req:Request, res:Response):Promise<void> => {
+    const { email, code } = req.body
+    
+    try{
+        const user = await User.findOne({email})
+
+        if(!user){
+            res.status(400).json({
+                msg: "No se encontró el email en la base de datos"
+            })
+            return
+        }
+
+        if(user.verified){
+            res.status(400).json({
+                msg: "El usuario está correctamente verificado"
+            })
+            return
+        }
+
+        if(user.code !== code){
+            res.status(401).json({
+                msg: "El código ingresado es incorrecto"
+            })
+            return
+        }
+
+        const userUpdated = await User.findOneAndUpdate({email},{verified: true})
+
+        res.status(200).json({
+            msg: "Usuario verificado con éxito"
+        })
+
+    }catch(error){
+        console.log(error)
+        res.status(500).json({
+            msg: "Error en el servidor"
+        })
+    }
+}
 
 /* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
@@ -98,7 +149,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
-    const { category, img, desc, city, address }: IWorker = req.body;
+    const { category, img, desc, province, city, address }: IWorker = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -110,7 +161,7 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
 
 
         // Agrega los datos del trabajador al usuario
-        user.worker = { category, img, desc, city, address };
+        user.worker = { category, img, desc, city, province, address };
 
         await user.save();
 
