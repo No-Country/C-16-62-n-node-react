@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../axios/axios.user";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+  const { login } = useAuth();
 
   useEffect(() => {
     const storedRememberMe = localStorage.getItem("rememberMe") === "true";
@@ -31,23 +36,32 @@ const Login = () => {
     setRememberMe(!rememberMe);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const response = await loginUser(email, password);
 
-    if (rememberMe) {
-      localStorage.setItem("rememberMe", "true");
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-    } else {
-      localStorage.removeItem("rememberMe");
-      localStorage.removeItem("email");
-      localStorage.removeItem("password");
+      login(response.user); 
+      
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", "true");
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+      } else {
+        localStorage.removeItem("rememberMe");
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+      }
+
+      setAuthenticatedUser(response.user);
+
+      alert("Has iniciado sesión correctamente");
+      navigate("/");
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      setError("Error al iniciar sesión, verifica tus credenciales");
     }
-
-    navigate("/");
   };
 
   return (
@@ -94,13 +108,12 @@ const Login = () => {
             Recordarme
           </label>
         </div>
-
         <button
           type="submit"
           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"
         >
           Iniciar sesión
-        </button>
+        </button>{" "}
       </form>
     </>
   );
