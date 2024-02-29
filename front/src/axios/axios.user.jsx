@@ -29,18 +29,31 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const createWorker = async (_id, category, img, desc, province, address) => {
+export const createWorker = async (_id, category, desc, province, city, address) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/worker/${_id}`, {
       category,
-      img,
       desc,
       province,
       address,
+      city
     });
     return data;
   } catch (error) {
     console.error("Error creating worker:", error);
     throw error;
+  }
+};
+
+export const verifyUser = async (email, code) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/auth/verify`, {
+      email,
+      code
+    });
+    return response.data;
+  } catch (error) {
+    console.log({ verifyUserError: error });
+    return alert("Código incorrecto");
   }
 };

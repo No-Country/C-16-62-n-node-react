@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Select, Label, TextInput, FileInput, Textarea } from "flowbite-react";
+import { Select, TextInput, Textarea } from "flowbite-react";
 import { createWorker } from "../../axios/axios.user";
+import { useAuth } from "../../context/AuthContext";
 
 function FormService() {
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
   const [localities, setLocalities] = useState([]);
   const [selectedLocality, setSelectedLocality] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
+  const [category, setCategory] = useState("");
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -44,9 +47,12 @@ function FormService() {
     fetchLocalities();
   }, [selectedProvince]);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   const handleDescriptionChange = (e) => {
@@ -54,30 +60,24 @@ function FormService() {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
       const _id = currentUser ? currentUser._id : null;
+      const province = selectedProvince;
+      const city = selectedLocality;
+      const desc = description;
 
-      const formData = new FormData();
-      formData.append("province", selectedProvince);
-      formData.append("city", selectedLocality);
-      formData.append("address", e.target.address.value);
-      formData.append("category", e.target.category.value); // Cambié 'services' a 'category'
-      formData.append("desc", description);
-      formData.append("img", selectedFile);
       const result = await createWorker(
         _id,
-        formData.get("category"),
-        formData.get("img"),
-        formData.get("desc"),
-        formData.get("province"),
-        formData.get("address")
+        category,
+        desc,
+        province,
+        city,
+        address
       );
 
       console.log("Trabajador registrado con éxito:", result);
-
-     
-      setSelectedFile(null);
-      setDescription("");
     } catch (error) {
       console.error("Error al registrar el trabajador:", error);
     }
@@ -127,13 +127,20 @@ function FormService() {
         <TextInput
           id="address"
           type="text"
+          value={address}
+          onChange={handleAddressChange}
           placeholder="Agrega una dirección (opcional)"
           required
           shadow
         />
       </div>
       <div className="max-w-md mb-4">
-        <Select id="category" required>
+        <Select
+          id="category"
+          value={category}
+          onChange={handleCategoryChange}
+          required
+        >
           <option value="" disabled selected>
             Selecciona tu oficio
           </option>
@@ -155,16 +162,8 @@ function FormService() {
         />
       </div>
 
-      <div className="mb-4">
-        <FileInput
-          id="img"
-          onChange={handleFileChange}
-          accept="image/*"
-          required
-        />
-      </div>
-
       <button
+        onClick={handleSubmit}
         type="submit"
         className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 my-7"
       >
