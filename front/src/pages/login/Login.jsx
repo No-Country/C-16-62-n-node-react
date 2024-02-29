@@ -9,7 +9,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
-  const [authenticatedUser, setAuthenticatedUser] = useState(null);
   const { login } = useAuth();
 
   useEffect(() => {
@@ -42,8 +41,8 @@ const Login = () => {
     try {
       const response = await loginUser(email, password);
 
-      login(response.user); 
-      
+      login(response.user);
+
       if (rememberMe) {
         localStorage.setItem("rememberMe", "true");
         localStorage.setItem("email", email);
@@ -53,8 +52,6 @@ const Login = () => {
         localStorage.removeItem("email");
         localStorage.removeItem("password");
       }
-
-      setAuthenticatedUser(response.user);
 
       alert("Has iniciado sesión correctamente");
       navigate("/");
@@ -68,7 +65,7 @@ const Login = () => {
     <>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6">
         <div className="mb-2 block">
-          <h3 class="text-2xl font-bold p-5">INICIAR SESIÓN</h3>
+          <h3 className="text-2xl font-bold p-5">INICIAR SESIÓN</h3>
           <input
             type="email"
             id="email"
@@ -90,8 +87,8 @@ const Login = () => {
             required
           />
         </div>
-        <div class="flex items-start mb-5">
-          <div class="flex items-center h-5">
+        <div className="flex items-start mb-5">
+          <div className="flex items-center h-5">
             <input
               id="remember"
               type="checkbox"
@@ -103,11 +100,12 @@ const Login = () => {
           </div>
           <label
             htmlFor="remember"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Recordarme
           </label>
         </div>
+        {error && <div className="text-red-500">{error}</div>}
         <button
           type="submit"
           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"

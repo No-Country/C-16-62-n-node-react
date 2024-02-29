@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Select, Label, TextInput, FileInput, Textarea } from "flowbite-react";
 import { createWorker } from "../../axios/axios.user";
 
-
-
 function FormService() {
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState("");
@@ -56,40 +54,34 @@ function FormService() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-      try {
-        const formData = new FormData();
-        formData.append("province", selectedProvince);
-        formData.append("city", selectedLocality);
-        formData.append("address", e.target.address.value);
-        formData.append("category", e.target.services.value);
-        formData.append("desc", description);
-        formData.append("img", selectedFile);
-    
-        // Llamada a la función createWorker
-        const result = await createWorker(
-          _id, // Asegúrate de tener el _id disponible aquí
-          formData.get("category"),
-          formData.get("img"),
-          formData.get("desc"),
-          formData.get("province"),
-          formData.get("address")
-        );
-    
-        // Lógica adicional después de la llamada exitosa
-        console.log("Trabajador registrado con éxito:", result);
-    
-        // Limpiar los campos del formulario o realizar otras acciones necesarias
-        setSelectedFile(null);
-        setDescription("");
-      } catch (error) {
-        console.error("Error al registrar el trabajador:", error);
-        // Lógica adicional en caso de error
-        // Puedes mostrar un mensaje de error, redirigir, etc.
-      }
-    }
+    try {
+      const _id = currentUser ? currentUser._id : null;
 
+      const formData = new FormData();
+      formData.append("province", selectedProvince);
+      formData.append("city", selectedLocality);
+      formData.append("address", e.target.address.value);
+      formData.append("category", e.target.category.value); // Cambié 'services' a 'category'
+      formData.append("desc", description);
+      formData.append("img", selectedFile);
+      const result = await createWorker(
+        _id,
+        formData.get("category"),
+        formData.get("img"),
+        formData.get("desc"),
+        formData.get("province"),
+        formData.get("address")
+      );
+
+      console.log("Trabajador registrado con éxito:", result);
+
+     
+      setSelectedFile(null);
+      setDescription("");
+    } catch (error) {
+      console.error("Error al registrar el trabajador:", error);
+    }
+  };
 
   return (
     <form className="max-w-sm mx-auto">
