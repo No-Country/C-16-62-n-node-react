@@ -2,7 +2,6 @@ import User, { IUser, IWorker } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 import randomstring from "randomstring"
-import jwt from 'jsonwebtoken';
 import { sendEmail } from "../mailer/mailer";
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
@@ -21,8 +20,6 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
         user.code = newCode
 
      await user.save();
-
-     console.log(email, newCode)
      await sendEmail(email, newCode)
     
     res.status(201).json({
