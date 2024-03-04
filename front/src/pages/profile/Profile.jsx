@@ -3,7 +3,6 @@ import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useAuth } from "../../context/AuthContext";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
 
 const reviews = [
   {
@@ -27,9 +26,9 @@ const reviews = [
 ];
 
 const Profile = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, currentWorker, logout } = useAuth();
   const [openModal, setOpenModal] = useState(false);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -48,13 +47,21 @@ const Profile = () => {
           />
           <div className="text-left">
             <p className="text-xl text-gray-800 font-bold mb-1">
-            {currentUser ? currentUser.name : 'Nombre de Usuario'}
+              {currentUser ? currentUser.name : "Nombre de Usuario"}
             </p>
             <p className="text-base text-gray-500 font-normal">
-              Zona de Residencia: {currentUser ? currentUser.location : 'Lugar de residencia'}.
+              Zona de Residencia:{" "}
+              {currentUser ? (
+                <>
+                 Ciudad
+                </>
+              ) : (
+                "Lugar de residencia"
+              )}
+              .
             </p>
             <p className="text-base text-gray-500 font-normal">
-              {currentUser ? currentUser.email : 'Email del usuario'}
+              {currentUser ? currentUser.email : "Email del usuario"}
             </p>
           </div>
           <button
@@ -126,7 +133,7 @@ const Profile = () => {
           </Modal.Body>
         </Modal>
       </div>
-   </div>
+    </div>
   );
 };
 
