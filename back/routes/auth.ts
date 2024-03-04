@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, logIn, addWorkerData, verifyUser } from '../controllers/auth'; 
+import { registerUser, logIn, addWorkerData, verifyUser, updateWorkerData } from '../controllers/auth'; 
 import { check } from "express-validator"; 
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { emailExist, emailNotExist } from "../helpers/validations";
@@ -30,6 +30,7 @@ router.patch("/verify", [
     ],
     verifyUser
   );
+  router.patch("/edit/:userId", updateWorkerData)
     
   router.post("/worker/:userId", [
     check("category", "Te faltó la categoría").not().isEmpty(),

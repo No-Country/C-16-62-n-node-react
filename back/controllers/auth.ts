@@ -68,43 +68,6 @@ export const verifyUser =async (req:Request, res:Response):Promise<void> => {
     }
 }
 
-/* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
-    const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
-    
-    if (!token) {
-        res.status(401).json({ message: 'Token de autenticación no proporcionado' });
-        return;
-    }
-
-    try {
-        const decodedToken = jwt.verify(token, 'pass?') as { userId: string }; //Definir firma del JWT para poder verificar y decodificar el token 
-        
-        const userId = decodedToken.userId;
-
-        const { category, img, desc }: IWorker = req.body;
-
-        const user = await User.findById(userId);
-
-        if (!user) {
-            res.status(404).json({ message: 'Usuario no encontrado' });
-            return;
-        }
-
-        if (user.worker) {
-            res.status(400).json({ message: 'El usuario ya tiene datos de trabajador' });
-            return;
-        }
-
-        user.worker = { category, img, desc };
-
-        await user.save();
-
-        res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
-    } catch (error) {
-        res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
-    }
-};
-*/
 export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
     const { email, password } :IUser = req.body
@@ -157,8 +120,6 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
             return;
         }
 
-
-        // Agrega los datos del trabajador al usuario
         user.worker = { category, desc, city, province, address };
 
         await user.save();
@@ -166,5 +127,42 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
     } catch (error) {
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
+    }
+};
+export const updateWorkerData = async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.userId;
+    const { desc, address, city, phone }: Partial<IWorker & IUser> = req.body;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+
+        if (user.worker !== undefined) {
+            if (desc !== undefined) {
+                user.worker.desc = desc;
+            }
+        
+            if (address !== undefined) {
+                user.worker.address = address;
+            }
+        
+            if (city !== undefined) {
+                user.worker.city = city;
+            }
+        }
+        
+        if (phone !== undefined) {
+            user.phone = phone;
+        }
+
+        await user.save();
+
+        res.status(200).json({ message: 'Datos actualizados exitosamente', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al actualizar los datos', error });
     }
 };
