@@ -166,3 +166,29 @@ export const updateWorkerData = async (req: Request, res: Response): Promise<voi
         res.status(500).json({ message: 'Error al actualizar los datos', error });
     }
 };
+
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
+
+    const userId = req.params.userId;
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+
+        res.status(200).json({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            worker: user.worker
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener los datos del usuario', error });
+    }
+
+
+}
+
+
