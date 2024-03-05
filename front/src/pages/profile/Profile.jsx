@@ -33,7 +33,7 @@ const reviews = [
 ];
 
 const Profile = () => {
-  const { currentUser, logout, setCurrentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [formData, setFormData] = useState({
