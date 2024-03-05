@@ -1,9 +1,10 @@
-import User, { IUser, IWorker } from "../models/users";
+import User, { IUser, IWorker, IReview } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 import randomstring from "randomstring"
 import jwt from 'jsonwebtoken';
 import { sendEmail } from "../mailer/mailer";
+
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
@@ -68,6 +69,8 @@ export const verifyUser =async (req:Request, res:Response):Promise<void> => {
         })
     }
 }
+
+
 
 /* export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const token = req.headers.authorization?.split(' ')[1]; // Obtener el token JWT del encabezado de autorizacion
@@ -166,5 +169,31 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
         res.status(200).json({ message: 'Datos de trabajador agregados exitosamente', user });
     } catch (error) {
         res.status(500).json({ message: 'Error al agregar los datos de trabajador', error });
+    }
+};
+
+//Controller para el apartado de reseñas
+
+export const addReview = async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.userId;
+
+    try {
+        const { userId, rating, comment }: IReview = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            res.status(404).json({ message: 'Usuario no encontrado' });
+            return;
+        }
+
+        // Agrega la reseña al campo 'reviews' del usuario
+        user.reviews.push({ userId: userId, rating, comment: comment });
+
+        await user.save();
+
+        res.status(200).json({ message: 'Reseña agregada exitosamente', user });
+    } catch (error) {
+        console.error('Error al agregar la reseña:', error);
+        res.status(500).json({ message: 'Error interno del servidor', error });
     }
 };

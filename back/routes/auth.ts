@@ -4,6 +4,7 @@ import { check } from "express-validator";
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { createCheckSchema } from "express-validator/src/middlewares/schema";
 import { register } from "module";
+import { emailNotExist } from "../helpers/validations";
 
 
 
