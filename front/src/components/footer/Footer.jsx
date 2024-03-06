@@ -3,16 +3,10 @@ import Logo from "../../assets/logo.svg";
 import { useLocation, useParams } from "react-router-dom";
 
 const Footer = () => {
-  const { userId } = useParams();
   const location = useLocation();
-  const isProfilePage = location.pathname.includes("/profile");
 
   return (
-    <footer
-      className={`bg-[#1995AD] text-white shadow ${
-        isProfilePage ? "relative" : "fixed"
-      } bottom-0 w-full`}
-    >
+    <footer className={`bg-[#1995AD] text-white shadow`}>
       {" "}
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">

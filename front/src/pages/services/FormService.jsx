@@ -155,6 +155,8 @@ function FormService() {
           <option value="plomero">Plomero</option>
           <option value="albañil">Albañil</option>
           <option value="mecanico">Mecánico</option>
+          <option value="electricista">Electricista</option>
+          <option value="Carpintero">Carpintero</option>
         </Select>
       </div>
 

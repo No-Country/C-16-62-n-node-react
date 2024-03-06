@@ -80,7 +80,7 @@ const ProfileUser = () => {
           <p className="text-base text-gray-500 font-normal">
             Oficio: {userData.worker?.category || "No especificado"}
           </p>
-          {/* Otros detalles sobre el oficio según la estructura de tu API */}
+    
         </div>
         </div>
       </div>
