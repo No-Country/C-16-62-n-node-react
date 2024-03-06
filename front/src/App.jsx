@@ -6,9 +6,10 @@ import Footer from './components/footer/Footer';
 
 function App() {
 
-  return (
+  return (    
     <>
       <Router>
+       <HomePage/>
         < NavBar />
           < Public />
          <Footer />
