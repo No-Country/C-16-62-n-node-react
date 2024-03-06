@@ -19,7 +19,6 @@ function NavBar() {
         <div className="flex md:order-2">
           {currentUser ? (
             <>
-              {" "}
               <Link
                 to="/forms/services"
                 className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
@@ -30,8 +29,10 @@ function NavBar() {
                 to={"/profile"}
                 className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
               >
-                {currentUser.name}
-              </Link>{" "}
+                {currentUser.workerData
+                  ? currentUser.workerData.name
+                  : currentUser.name}
+              </Link>
             </>
           ) : (
             <>

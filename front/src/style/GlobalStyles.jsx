@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         background: #F1F1F2;
         overflow-x: hidden;
+        overflow: auto;
         min-height: 100vh;
     }
     * {    

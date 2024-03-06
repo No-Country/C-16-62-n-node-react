@@ -14,6 +14,7 @@ function Register() {
   const [error, setError] = useState("");
   const [registeredUser, setRegisteredUser] = useState(null);
   const { login } = useAuth();
+  const [phoneError, setPhoneError] = useState("");
   const navigate = useNavigate("");
 
   const handleSubmit = async (e) => {
@@ -27,6 +28,14 @@ function Register() {
     if (password.length < 6) {
       alert("La contraseña es demasiado corta");
       return;
+    }
+
+    const phoneRegex = /^\d+$/;
+    if (!phoneRegex.test(phone)) {
+      setPhoneError("El número de teléfono solo puede contener números.");
+      return;
+    } else {
+      setPhoneError("");
     }
 
     try {
