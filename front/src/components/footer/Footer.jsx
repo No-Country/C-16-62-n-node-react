@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer
       className={`bg-[#1995AD] text-white shadow ${
-        isProfilePage ? "relative" : "fixed"
+        isProfilePage ? "relative" : ""
       } bottom-0 w-full`}
     >
       {" "}
