@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Select, TextInput, Textarea } from "flowbite-react";
 import { createWorker } from "../../axios/axios.user";
 import { useAuth } from "../../context/AuthContext";
+import {  uploadFile } from "../../firebase/config"
 
 function FormService() {
   const [file, setFile] = useState(null);
@@ -13,8 +14,6 @@ function FormService() {
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
   const [category, setCategory] = useState("");
-  const navigate = useNavigate();
-  const { updateCurrentUserWithWorkerData } = useAuth();
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -65,14 +64,14 @@ function FormService() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const _id = currentUser ? currentUser._id : null;
       const fileAvatar = await uploadFile(file);
       const province = selectedProvince;
       const city = selectedLocality;
       const desc = description;
-
+      
       const result = await createWorker(
         _id,
         fileAvatar,
@@ -82,11 +81,7 @@ function FormService() {
         city,
         address
       );
-      console.log(result, 'resultado');
-      updateCurrentUserWithWorkerData(result.user);
-  
-      navigate("/profile");
-      alert("Trabajador registrado con éxito");
+
       console.log("Trabajador registrado con éxito:", result);
     } catch (error) {
       console.error("Error al registrar el trabajador:", error);
@@ -195,7 +190,7 @@ function FormService() {
           </option>
           <option value="gasista">Gasista</option>
           <option value="plomero">Plomero</option>
-          <option value="albañil">Albañil</option>
+          <option value="albanil">Albañil</option>
           <option value="mecanico">Mecánico</option>
         </Select>
       </div>
