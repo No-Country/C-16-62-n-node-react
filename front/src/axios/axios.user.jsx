@@ -29,14 +29,21 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const createWorker = async (_id, category, desc, province, city, address) => {
+export const createWorker = async (
+  _id,
+  category,
+  desc,
+  province,
+  city,
+  address
+) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/worker/${_id}`, {
       category,
       desc,
       province,
       address,
-      city
+      city,
     });
     return data;
   } catch (error) {
@@ -49,11 +56,21 @@ export const verifyUser = async (email, code) => {
   try {
     const response = await axios.patch(`${BASE_URL}/auth/verify`, {
       email,
-      code
+      code,
     });
     return response.data;
   } catch (error) {
     console.log({ verifyUserError: error });
     return alert("Código incorrecto");
+  }
+};
+
+export const getUserData = async (userId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/auth/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
   }
 };

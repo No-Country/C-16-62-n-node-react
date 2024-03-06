@@ -1,28 +1,47 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getUserData } from "../../axios/axios.user";
 import { useNavigate, useParams } from "react-router-dom";
-import { BASE_URL } from "../../utils/constants";
-import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { Modal, Button } from "flowbite-react";
+import { Button } from "flowbite-react";
+import { FaWhatsapp } from "react-icons/fa";
+
+
+const reviews = [
+  {
+    id: 1,
+    content: "Excelente servicio, muy recomendado!",
+    author: "Nombre del Reseñador",
+    date: "2024-02-25",
+  },
+  {
+    id: 2,
+    content: "Excelente servicio, muy recomendado!",
+    author: "Nombre del Reseñador",
+    date: "2024-02-25",
+  },
+  {
+    id: 3,
+    content: "Excelente servicio, muy recomendado!",
+    author: "Nombre del Reseñador",
+    date: "2024-02-25",
+  },
+];
 
 const ProfileUser = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
-      setIsLoading(true);
       try {
-        const { data } = await axios.get(`${BASE_URL}/user/${id}`);
+        const data = await getUserData(id);
         setUserData(data);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
-        setError(error);
+        console.log("Detailed error information:", error);
+      } finally {
         setIsLoading(false);
       }
     };
@@ -36,9 +55,8 @@ const ProfileUser = () => {
     window.open(`https://wa.me/${userData?.phone}`, '_blank');
   };
 
-
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading user profile</div>;
+  if (!userData) return <div>Error loading user profile</div>;
 
   return (
     <div className="container mx-auto p-10">
@@ -46,33 +64,65 @@ const ProfileUser = () => {
         <div className="flex items-center space-x-6 mb-4">
           <img
             className="h-24 w-24 object-cover rounded-full"
-            src={userData ? userData.profilePictureUrl : "https://via.placeholder.com/150"}
+            src={userData.profilePictureUrl || "https://via.placeholder.com/150"}
             alt="Foto del usuario"
           />
           <div className="text-left">
-            <p className="text-xl text-gray-800 font-bold mb-1">
-              {userData ? userData.name : "Nombre de Usuario"}
-            </p>
-            <p className="text-base text-gray-500 font-normal">
-              Email: {userData ? userData.email : "Correo electrónico no disponible"}
-            </p>
-            <p className="text-base text-gray-500 font-normal">
-              Zona de Residencia: {userData && userData.address ? userData.address.province : "No disponible"}.
-            </p>
-            {/* Incluir más detalles del usuario según lo que se retorne de tu API */}
-          </div>
+          <p className="text-xl text-gray-800 font-bold mb-1">
+            {userData.name || "Nombre de Usuario"}
+          </p>
+          <p className="text-base text-gray-500 font-normal">
+            Email: {userData.email || "Correo electrónico no disponible"}
+          </p>
+          <p className="text-base text-gray-500 font-normal">
+            Zona de Residencia: {userData.address?.province || "No disponible"}.
+          </p>
+          <p className="text-base text-gray-500 font-normal">
+            Oficio: {userData.worker?.category || "No especificado"}
+          </p>
+          {/* Otros detalles sobre el oficio según la estructura de tu API */}
         </div>
-        {/* Considera añadir secciones adicionales aquí, por ejemplo, reseñas o información adicional del perfil */}
+        </div>
       </div>
 
-      
-      <div className="text-center mt-6">
-            <Button
-              onClick={handleContactButtonClick}
-            >
-              Contactar
-            </Button>
-          </div>
+      <div className="bg-white shadow rounded-lg p-6 mt-5">
+        <h2 className="text-xl font-semibold text-gray-800 mb-4">Reseñas</h2>
+        <div className="flex flex-wrap -mx-4">
+          {reviews.slice(0, 3).map((review) => (
+            <div key={review.id} className="w-full sm:w-1/2 md:w-1/3 px-4 mb-4">
+              <div className="bg-gray-100 p-6 rounded-lg h-full">
+                <p className="text-gray-600">"{review.content}"</p>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="text-sm text-gray-500">
+                    <span>Por: {review.author}</span>,{" "}
+                    <span>Fecha: {review.date}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-6">
+          <button
+            type="button"
+            className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+          >
+            Ver más reseñas
+          </button>
+        </div>
+      </div>
+
+
+
+      <div className="flex items-center justify-center m-10">
+        <Button
+          onClick={handleContactButtonClick}
+          className="bg-[#25D366] hover:bg-[#128C7E] text-white flex items-center justify-center py-2"
+        >
+          <FaWhatsapp className="text-xl mr-2" />
+          Contactar por WhatsApp
+        </Button>
+      </div>
     </div>
   );
 };
