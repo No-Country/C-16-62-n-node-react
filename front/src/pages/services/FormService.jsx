@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Select, TextInput, Textarea } from "flowbite-react";
+import { Select, TextInput, Textarea, FileInput } from "flowbite-react";
 import { createWorker } from "../../axios/axios.user";
 import { useAuth } from "../../context/AuthContext";
 import {  uploadFile } from "../../firebase/config"
@@ -12,6 +12,7 @@ function FormService() {
   const [localities, setLocalities] = useState([]);
   const [selectedLocality, setSelectedLocality] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [address, setAddress] = useState("");
   const [category, setCategory] = useState("");
   const { currentUser } = useAuth();
@@ -55,11 +56,16 @@ function FormService() {
   };
 
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
+    setCategory(e.target.value.toLowerCase());
   };
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedFile(file);
   };
 
   const handleSubmit = async (e) => {
@@ -79,7 +85,8 @@ function FormService() {
         desc,
         province,
         city,
-        address
+        address,
+        // img
       );
 
       console.log("Trabajador registrado con éxito:", result);
@@ -185,13 +192,15 @@ function FormService() {
           onChange={handleCategoryChange}
           required
         >
-          <option value="" disabled selected>
+          <option value="" disabled defaultValue>
             Selecciona tu oficio
           </option>
           <option value="gasista">Gasista</option>
           <option value="plomero">Plomero</option>
           <option value="albanil">Albañil</option>
           <option value="mecanico">Mecánico</option>
+          <option value="electricista">Electricista</option>
+          <option value="Carpintero">Carpintero</option>
         </Select>
       </div>
 
@@ -205,6 +214,14 @@ function FormService() {
           required
         />
       </div>
+      {/* <div className="mb-4">
+        <FileInput
+          id="img"
+          onChange={handleFileChange}
+          accept="image/*"
+          required
+        />
+      </div> */}
 
       <button
         onClick={handleSubmit}

@@ -3,7 +3,7 @@ import { Spinner } from 'flowbite-react';
 const styles = {
   spinner: {
     position: "fixed",
-    top: "50%",
+    top: "17.5%",
     left: "50%",
   },
 };
