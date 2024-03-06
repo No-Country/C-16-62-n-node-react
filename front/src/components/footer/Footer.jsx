@@ -1,10 +1,11 @@
 import React from "react";
 import Logo from "../../assets/logo.svg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Footer = () => {
+  const { userId } = useParams();
   const location = useLocation();
-  const isProfilePage = location.pathname === "/profile";
+  const isProfilePage = location.pathname.includes("/profile");
 
   return (
     <footer

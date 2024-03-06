@@ -1,1 +1,1 @@
-export const BASE_URL = "https://c-16-62-n-node-react-git-developerment-contratame.vercel.app"
+export const BASE_URL = "https://c-16-62-n-node-react.vercel.app"
