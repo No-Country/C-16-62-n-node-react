@@ -75,7 +75,7 @@ const ProfileUser = () => {
             Email: {userData.email || "Correo electrónico no disponible"}
           </p>
           <p className="text-base text-gray-500 font-normal">
-            Zona de Residencia: {userData.address?.province || "No disponible"}.
+          Zona de Residencia: {userData.worker?.province || "No disponible"}.
           </p>
           <p className="text-base text-gray-500 font-normal">
             Oficio: {userData.worker?.category || "No especificado"}
