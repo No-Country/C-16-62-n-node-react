@@ -9,7 +9,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-       <HomePage/>
         < NavBar />
           < Public />
          <Footer />

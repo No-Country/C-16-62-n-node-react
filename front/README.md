@@ -118,36 +118,25 @@ Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas de
 ---
 
 
-## :tv: Algunos ejemplos de pantallas
+## **Algunos ejemplos de pantallas**
 
 - Inicio de sesión o registro:
 
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/5ae38297-bd83-4259-87ea-7d9a75a0dd0c)
+![image](./src/assets/imgReadme/login.png)
 
 - Registro: se agregan validaciones y se le avisa al usuario por medio e carteles antes errores y ante registro exitoso.
 
-  ![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/bead6f05-8cad-4924-b282-4cb054867d60)
+  ![image](./src/assets/imgReadme/registro.png)
 
-- Pantalla de inicio de sesión:
+- Pantalla de perfil:
 
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/fd5a2fc1-40a6-401c-8504-bed1e21f1bf4)
+![image](./src/assets/imgReadme/Perfil.png)
 
-- Pantalla de mercado:
+- Pantalla de Home/Oficios:
 
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/1647b44d-52df-472d-a676-787fdf73628a)
+![image](./src/assets/imgReadme/Home.png)
 
-- Pantalla de compra:
 
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/8eb7d7fe-fa8d-4032-8c85-9494e47188e2)
-
-Se puede filtrar la cripto monedaa  comprar, indicar el monto, ver el resumen de la compra, seleccionar el método de pago y en el próximo paso completar con los datos de la tarjeta para finalizar la compra.
-
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/346746a9-0a2e-4e17-b7c1-89f1693be3e2)
-
-- Pantalla de cartera:
-
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/4f41e787-d361-42c2-88d8-614e5e1d11d8)
-      
 ---
 
 
@@ -210,7 +199,7 @@ Creamos un **MVP** y dividimos las tareas en **sprints** (con duración de una s
 
 ## ¿Cómo veo en local el Front y el Back ?
 
-- 1ro: copiar el repositorio con: `git clone https://github.com/No-Country/s10-03-t-node-nest-react-binance.git`
+- 1ro: copiar el repositorio con: `git clone https://github.com/No-Country/C-16-62-n-node-react.git`
 
 - <img width="30" height="30" src="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/30/external-server-miscellaneous-kiranshastry-lineal-color-kiranshastry.png" alt="external-server-miscellaneous-kiranshastry-lineal-color-kiranshastry"/> 2do: Para el **Back** ir al repositorio **server** y ya dentro:
 
