@@ -6,7 +6,9 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         background: #F1F1F2;
-        overflow-x: hidden
+        overflow-x: hidden;
+        overflow: auto;
+        min-height: 100vh;
     }
     * {    
     font-family: 'Roboto', sans-serif;
@@ -20,7 +22,6 @@ export const GlobalStyle = createGlobalStyle`
 
 
 `;
-
 
 // PALETA DE COLORES
 // #F1F1F2 (BACKGROUND), #4C4C4D (TEXTOS), #BCBABE (FORMS), #A1D6E2 (CAJITAS), #1995AD (NAVBAR; FOOOTER; BOTONES;)

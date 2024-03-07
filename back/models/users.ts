@@ -2,14 +2,13 @@ import { Model, Schema, model } from 'mongoose';
 
 export interface IWorker {
     category: string;
-    img: string;
     desc: string;
+    fileAvatar: string;
+    province: string;
     city: string;
-    address: string;
+    address?: string;
 }
-
-
-export interface IUser {
+export interface IUser extends Document {
     name: string;
     email: string;
     phone: number;
@@ -37,7 +36,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: [true, "te faltó el email"]
     },
-    phone:{
+    phone: {
         type: Number,
         required: [true, "te faltó el celular"]
     },
@@ -49,10 +48,13 @@ const userSchema = new Schema<IUser>({
             category: {
                 type: String,
             },
-            img: {
+            fileAvatar: {
                 type: String,
             },
             desc: {
+                type: String,
+            },
+            province: {
                 type: String,
             },
             city:{
@@ -100,6 +102,10 @@ const userSchema = new Schema<IUser>({
         }
     }],
     
+    verified: {
+        type: Boolean,
+        default: false
+    }
 });
 
 userSchema.methods.toJSON = function () {

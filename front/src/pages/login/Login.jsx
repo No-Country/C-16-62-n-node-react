@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../axios/axios.user";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
+  const { login } = useAuth();
 
   useEffect(() => {
     const storedRememberMe = localStorage.getItem("rememberMe") === "true";
@@ -31,30 +35,37 @@ const Login = () => {
     setRememberMe(!rememberMe);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const response = await loginUser(email, password);
 
-    if (rememberMe) {
-      localStorage.setItem("rememberMe", "true");
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-    } else {
-      localStorage.removeItem("rememberMe");
-      localStorage.removeItem("email");
-      localStorage.removeItem("password");
+      login(response.user);
+
+      if (rememberMe) {
+        localStorage.setItem("rememberMe", "true");
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+      } else {
+        localStorage.removeItem("rememberMe");
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+      }
+
+      alert("Has iniciado sesión correctamente");
+      navigate("/");
+    } catch (error) {
+      console.error("Error en el inicio de sesión:", error);
+      setError("Error al iniciar sesión, verifica tus credenciales");
     }
-
-    navigate("/");
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto p-6">
         <div className="mb-2 block">
-          <h3 class="text-2xl font-bold p-5">INICIAR SESIÓN</h3>
+          <h3 className="text-2xl font-bold p-5">INICIAR SESIÓN</h3>
           <input
             type="email"
             id="email"
@@ -76,8 +87,8 @@ const Login = () => {
             required
           />
         </div>
-        <div class="flex items-start mb-5">
-          <div class="flex items-center h-5">
+        <div className="flex items-start mb-5">
+          <div className="flex items-center h-5">
             <input
               id="remember"
               type="checkbox"
@@ -89,18 +100,18 @@ const Login = () => {
           </div>
           <label
             htmlFor="remember"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Recordarme
           </label>
         </div>
-
+        {error && <div className="text-red-500">{error}</div>}
         <button
           type="submit"
           className="text-white bg-[#1995AD] hover:bg-[#2aa0b8] hover:underline font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2"
         >
           Iniciar sesión
-        </button>
+        </button>{" "}
       </form>
     </>
   );
