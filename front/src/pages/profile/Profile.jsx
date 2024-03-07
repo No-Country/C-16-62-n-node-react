@@ -6,6 +6,7 @@ import {
   Modal,
   TextInput,
   Select,
+  FileInput,
 } from "flowbite-react";
 import { useAuth } from "../../context/AuthContext";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
@@ -36,12 +37,14 @@ const Profile = () => {
   const { currentUser, logout } = useAuth();
   const [openModal, setOpenModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     worker: {
       province: "",
+      fileAvatar: "",
       city: "",
       category: "",
     },
@@ -103,6 +106,16 @@ const Profile = () => {
     }));
   };
 
+  const defaultAvatarURL = "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/118ba606-3b35-45af-acc8-99f0848a4282?alt=media&token=331a9ef0-ff91-4299-8359-81c0537b255f";
+
+
+  const handleAvatarChange = (files) => {
+    if (files.length > 0) {
+      setAvatarFile(files[0]);
+    }
+    e.preventDefault();
+  };
+
   const handleLogout = () => {
     logout();
     setOpenModal(false);
@@ -122,9 +135,13 @@ const Profile = () => {
           ? currentUser.workerData?.phone || ""
           : currentUser.phone,
         worker: {
-          province: isWorker ? currentUser?.workerData?.worker.province || "" : "",
+          province: isWorker
+            ? currentUser?.workerData?.worker.province || ""
+            : "",
           city: isWorker ? currentUser?.workerData?.worker.city || "" : "",
-          category: isWorker ? currentUser?.workerData?.worker.category || "" : "",
+          category: isWorker
+            ? currentUser?.workerData?.worker.category || ""
+            : "",
         },
       }));
     }
@@ -134,11 +151,25 @@ const Profile = () => {
     <div className="container mx-auto p-10">
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex items-center space-x-6 mb-4">
-          <img
-            className="h-24 w-24 object-cover rounded-full"
-            src="https://via.placeholder.com/150"
-            alt="Foto del usuario"
-          />
+          <div className="mb-4">
+              <img
+                src={
+                  avatarFile
+                    ? URL.createObjectURL(avatarFile)
+                    : defaultAvatarURL
+                }
+                alt="Avatar"
+                className="h-24 w-24 object-cover rounded-full border border-gray-300"
+              />
+              <input
+                type="file"
+                id="avatar"
+                name="avatar"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="hidden"
+              />
+          </div>
           <div className="text-left">
             <p className="text-xl text-gray-800 font-bold mb-1">
               {currentUser?.workerData?.name ||

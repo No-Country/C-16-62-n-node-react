@@ -29,11 +29,19 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const createWorker = async (_id, category, desc, province, city, address) => {
+export const createWorker = async (
+  _id,
+  category,
+  fileAvatar,
+  desc,
+  province,
+  city,
+  address
+) => {
   try {
     const { data } = await axios.post(`${BASE_URL}/auth/worker/${_id}`, {
-      fileAvatar,
       category,
+      fileAvatar,
       desc,
       province,
       address,

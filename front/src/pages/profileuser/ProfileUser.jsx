@@ -64,7 +64,7 @@ const ProfileUser = () => {
         <div className="flex items-center space-x-6 mb-4">
           <img
             className="h-24 w-24 object-cover rounded-full"
-            src={userData.profilePictureUrl || "https://via.placeholder.com/150"}
+            src={userData.worker.category || "https://via.placeholder.com/150"}
             alt="Foto del usuario"
           />
           <div className="text-left">
@@ -78,7 +78,7 @@ const ProfileUser = () => {
           Zona de Residencia: {userData.worker?.province || "No disponible"}.
           </p>
           <p className="text-base text-gray-500 font-normal">
-            Oficio: {userData.worker?.category || "No especificado"}
+            Oficio: {userData.worker?.fileAvatar || "No especificado"}
           </p>
     
         </div>
