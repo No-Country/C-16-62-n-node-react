@@ -192,9 +192,9 @@ const Profile = () => {
             </p>
             <div className="text-base text-gray-500 font-normal">
               Oficio:{" "}
-              {formData.worker.category ||
-                currentUser?.workerData?.worker.category ||
-                currentUser?.worker.category ||
+              {formData.worker.fileAvatar ||
+                currentUser?.workerData?.worker.fileAvatar ||
+                currentUser?.worker.fileAvatar ||
                 "No disponible"}
             </div>
           </div>
