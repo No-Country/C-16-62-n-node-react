@@ -3,6 +3,7 @@ import { Model, Schema, model } from 'mongoose';
 export interface IWorker {
     category: string;
     desc: string;
+    fileAvatar: string;
     province: string;
     city: string;
     address?: string;
@@ -36,6 +37,9 @@ const userSchema = new Schema<IUser>({
     },
      worker:{
             category: {
+                type: String,
+            },
+            fileAvatar: {
                 type: String,
             },
             desc: {

@@ -110,7 +110,7 @@ export const logIn = async (req: Request, res: Response ) : Promise <void> =>{
 
 export const addWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId; // Suponiendo que pasas el ID del usuario en la URL
-    const { category, desc, province, city, address }: IWorker = req.body;
+    const { category, desc, province, city, address, fileAvatar }: IWorker = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -120,7 +120,7 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
             return;
         }
 
-        user.worker = { category, desc, city, province, address };
+        user.worker = { category, desc, city, fileAvatar, province, address };
 
         await user.save();
 
@@ -131,7 +131,7 @@ export const addWorkerData = async (req: Request, res: Response): Promise<void> 
 };
 export const updateWorkerData = async (req: Request, res: Response): Promise<void> => {
     const userId = req.params.userId;
-    const { desc, address, city, phone }: Partial<IWorker & IUser> = req.body;
+    const { desc, address, city, fileAvatar, phone }: Partial<IWorker & IUser> = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -148,6 +148,9 @@ export const updateWorkerData = async (req: Request, res: Response): Promise<voi
         
             if (address !== undefined) {
                 user.worker.address = address;
+            }
+            if (fileAvatar !== undefined){
+                user.worker.fileAvatar = fileAvatar
             }
         
             if (city !== undefined) {
@@ -183,6 +186,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
             email: user.email,
             phone: user.phone,
             worker: user.worker
+            
         });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los datos del usuario', error });
