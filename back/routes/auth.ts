@@ -38,6 +38,7 @@ router.patch("/verify", [
     check("desc", "Necesitas añadir una descripción").not().isEmpty(),
     check("city", "Faltó la ciudad").not().isEmpty(),
     check("province", "Falta agregar la provincia"),
+    check("fileAvatar", "Faltó cargar una imagen").not().isEmpty(),
     collectErrors
 ], addWorkerData);
 
