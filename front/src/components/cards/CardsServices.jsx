@@ -5,17 +5,13 @@ import { Link } from "react-router-dom";
 const CardsServices = ({ users }) => {
   console.log("Users Data:", users);
 
-  const handleNewUser = (newUser) => {
-    // agregar lógica aquí para manejar nuevos usuarios,
-  };
-
   return (
     <>
       <div className="flex justify-center items-center flex-wrap gap-10">
         {users.slice(0, 6).map((user) => (
           <Card key={user._id} className="max-w-sm h-full mb-4">
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {user.worker.category}
+              {user.worker.category.toUpperCase()}
             </h5>
             <Avatar
               img={`/images/people/profile-picture-${user._id}.jpg`}

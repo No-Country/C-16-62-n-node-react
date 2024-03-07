@@ -5,7 +5,7 @@ import Loading from "../../components/loading/Loading";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [selectedCategory, setSelectedCategory] = useState();
   const [allUsers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
@@ -42,8 +42,8 @@ const HomePage = () => {
             },
           },
           {
-            _id: "65e6591079d56e",
-            email: "santinobertola03@gmail.com",
+            _id: "65e9369defeb668787ecffb8",
+            email: "Santiii@gmail.com",
             name: "Sebastian Castiblanco",
             phone: "5493541620398204000",
             verified: true,
@@ -55,27 +55,14 @@ const HomePage = () => {
             },
           },
           {
-            _id: "65e659107949dd42e01d56e",
-            email: "santinobertola03@gmail.com",
-            name: "Sebastian Castiblanco",
-            phone: "5493541620398204000",
+            _id: "65e9383cefeb668787ecffbd",
+            email: "juan@gmail.com",
+            name: "JUANCITO PEREZ",
+            phone: "5493541620535",
             verified: true,
             worker: {
-              category: "plomero",
-              desc: "Soy Sebastian, de 22 años y trabajo como plomero junto a mi padre desde los 14 años.",
-              province: "Mendoza, Argentina",
-              city: "746280",
-            },
-          },
-          {
-            _id: "65e659107949dd42e6e",
-            email: "santinobertola03@gmail.com",
-            name: "Sebastian Castiblanco",
-            phone: "5493541620398204000",
-            verified: true,
-            worker: {
-              category: "plomero",
-              desc: "Soy Sebastian, de 22 años y trabajo como plomero junto a mi padre desde los 14 años.",
+              category: "mecanico",
+              desc: "Soy Sebastian, de 22 años y trabajo como Mecanico junto a mi padre desde los 14 años.",
               province: "Mendoza, Argentina",
               city: "746280",
             },
@@ -86,7 +73,7 @@ const HomePage = () => {
         setFilteredUsers(initialUsers);
         setLoading(false);
 
-        console.log("Initial users loaded:", initialUsers);
+        // console.log("Initial users loaded:", initialUsers);
       } catch (error) {
         console.error("Error fetching initial users:", error);
         setLoading(false);
@@ -98,7 +85,6 @@ const HomePage = () => {
 
   const handleFilterChange = (category) => {
     setLoading(true);
-    console.log("Filtering users by category:", category);
 
     const lowerCaseCategory = category.toLowerCase();
     setSelectedCategory(category);
@@ -106,17 +92,22 @@ const HomePage = () => {
     const usersToShow =
       lowerCaseCategory === "todos"
         ? allUsers
-        : allUsers.filter((user) => user.worker.category.toLowerCase() === lowerCaseCategory);
+        : allUsers.filter(
+            (user) => user.worker.category.toLowerCase() === lowerCaseCategory
+          );
 
+    console.log("Filtered users:", usersToShow);
     setFilteredUsers(usersToShow);
     setLoading(false);
-    console.log("Filtered users:", usersToShow);
   };
 
+  
   const handleLoadMoreClick = () => {
     setLoading(true);
-    // Lógica para cargar más trabajadores aquí
-    setLoading(false);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
 
   return (
