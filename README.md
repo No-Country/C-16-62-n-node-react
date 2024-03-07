@@ -109,11 +109,6 @@ Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas de
 
 ![image](https://github.com/No-Country/C-16-62-n-node-react/blob/seba/front/src/assets/imgReadme/Home.png)
 
-- Pantalla de compra:
-
-![image](https://github.com/No-Country/s10-03-t-node-nest-react-binance/assets/72580574/8eb7d7fe-fa8d-4032-8c85-9494e47188e2)
-
-
 
 ---
 
