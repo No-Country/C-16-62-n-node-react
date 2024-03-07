@@ -3,7 +3,7 @@
 # <img width="40" height="40" src="https://img.icons8.com/dusk/40/binance.png" alt="binance"/> Equipo - c16-62-n-node-react
 
 
-Realizaremos un rediseño de Binance Lite basado en los principios de simplificación de “The laws of simplicity” de John Maeda, apuntado a crear una interfaz más amigable para los principiantes. 
+Realizaremos una aplicación que hará qu la busqueda de trabajadores para tareas del hogar sea mucho mas facíl; Electricistas, Gasistas, Plomeros, todo en un solo lugar. 
 
 Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas del hogar muchas veces requieren de una busqueda minusiosa y dificil pues no siempre se encuentra a la persona ideal para el trabajo, ContrataMe llega para brindar una solución eficaz para la búsqueda y realización del trabajo que requieras.
 
