@@ -22,6 +22,8 @@ const HomePage = () => {
             phone: "5492616002891",
             verified: true,
             worker: {
+              fileAvatar:
+                "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/118ba606-3b35-45af-acc8-99f0848a4282?alt=media&token=331a9ef0-ff91-4299-8359-81c0537b255f",
               category: "mecanico",
               desc: "Hola, soy Santino, de 28 años y me dedico a reparar autos desde los 18.",
               province: "Córdoba, Argentina",
@@ -35,6 +37,7 @@ const HomePage = () => {
             phone: "5493541620398204000",
             verified: true,
             worker: {
+              fileAvatar: "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/pablonudenberg.jpg?alt=media&token=dc2ef66b-8437-4b1d-94a3-272bddaf43ed",
               category: "gasista",
               desc: "Pablo. 35 años. Gasista de confianza por zona de Caballito.",
               province: "Caballito, Buenos Aires",
@@ -48,6 +51,7 @@ const HomePage = () => {
             phone: "5493541620398204000",
             verified: true,
             worker: {
+              fileAvatar: "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/IMG_20220815_164736_478.jpg?alt=media&token=43515303-f124-4857-8a94-5dd2048a83c4",
               category: "plomero",
               desc: "Soy Sebastian, de 22 años y trabajo como plomero junto a mi padre desde los 14 años.",
               province: "Mendoza, Argentina",
@@ -62,7 +66,7 @@ const HomePage = () => {
             verified: true,
             worker: {
               category: "mecanico",
-              desc: "Soy Sebastian, de 22 años y trabajo como Mecanico junto a mi padre desde los 14 años.",
+              desc: "Soy Juan, de 22 años y trabajo como Mecanico junto a mi padre desde los 14 años.",
               province: "Mendoza, Argentina",
               city: "746280",
             },
@@ -101,7 +105,6 @@ const HomePage = () => {
     setLoading(false);
   };
 
-  
   const handleLoadMoreClick = () => {
     setLoading(true);
 
