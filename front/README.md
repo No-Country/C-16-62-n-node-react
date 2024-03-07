@@ -89,7 +89,9 @@ Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas de
 | [<img width="20" height="20" src="https://img.icons8.com/cute-clipart/20/react-native.png" alt="react"/> react-router-dom](https://www.npmjs.com/package/react-router-dom) |
 | [<img width="20" height="20" src="https://img.icons8.com/color/20/firebase.png" alt="firebase"/> firebase](https://firebase.google.com/) |
 | [axios](https://axios-http.com/) |
-| [react-hot-toast](https://react-hot-toast.com/) para als notificaciones react router doom manejo de rutas |
+| [react-hot-toast](https://react-hot-toast.com/) |
+| [Tailwind CSS](https://tailwind.com) |
+| [Flowbite](https://flowbite.com/) |
 
 
 ### BACK END
