@@ -3,6 +3,7 @@ import { Select, TextInput, Textarea, FileInput } from "flowbite-react";
 import { createWorker } from "../../axios/axios.user";
 import { useAuth } from "../../context/AuthContext";
 import { uploadFile } from "../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 function FormService() {
   const [file, setFile] = useState(null);
@@ -16,6 +17,7 @@ function FormService() {
   const [address, setAddress] = useState("");
   const [category, setCategory] = useState("");
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -88,6 +90,8 @@ function FormService() {
         address
       );
 
+      alert("Te has registrado como trabajador correctamente")
+      navigate("/profile")
       console.log("Trabajador registrado con éxito:", result);
     } catch (error) {
       console.error("Error al registrar el trabajador:", error);

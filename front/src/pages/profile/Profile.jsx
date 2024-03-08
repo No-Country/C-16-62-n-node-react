@@ -106,14 +106,12 @@ const Profile = () => {
     }));
   };
 
-  const defaultAvatarURL = "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/118ba606-3b35-45af-acc8-99f0848a4282?alt=media&token=331a9ef0-ff91-4299-8359-81c0537b255f";
-
+  const defaultAvatarURL = "https://via.placeholder.com/150";
 
   const handleAvatarChange = (files) => {
     if (files.length > 0) {
       setAvatarFile(files[0]);
     }
-    e.preventDefault();
   };
 
   const handleLogout = () => {
@@ -123,35 +121,38 @@ const Profile = () => {
   };
 
   const isWorker = currentUser && currentUser.workerData;
+
   useEffect(() => {
-    if (currentUser) {
-      setFormData((prevData) => ({
-        ...prevData,
-        name: isWorker ? currentUser.workerData?.name || "" : currentUser.name,
-        email: isWorker
-          ? currentUser.workerData?.email || ""
-          : currentUser.email,
-        phone: isWorker
-          ? currentUser.workerData?.phone || ""
-          : currentUser.phone,
+    let isMounted = true;
+
+    if (currentUser && isMounted) {
+      const updatedFormData = {
+        name: currentUser.workerData?.name || currentUser.name || "",
+        email: currentUser.workerData?.email || currentUser.email || "",
+        phone: currentUser.workerData?.phone || currentUser.phone || "",
         worker: {
-          province: isWorker
-            ? currentUser?.workerData?.worker.province || ""
-            : "",
-          city: isWorker ? currentUser?.workerData?.worker.city || "" : "",
-          category: isWorker
-            ? currentUser?.workerData?.worker.category || ""
-            : "",
+          province: currentUser.workerData?.province || "",
+          city: currentUser.workerData?.city || "",
+          category: currentUser.workerData?.category || "",
+          fileAvatar: currentUser.workerData?.fileAvatar || "",
         },
-      }));
+      };
+
+      if (isMounted) {
+        setFormData(updatedFormData);
+      }
     }
-  }, [currentUser, isWorker]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentUser]);
 
   return (
     <div className="container mx-auto p-10">
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex items-center space-x-6 mb-4">
-          <div className="mb-4">
+        <div className="mb-4">
               <img
                 src={
                   avatarFile
