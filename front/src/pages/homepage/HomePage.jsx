@@ -65,7 +65,6 @@ const HomePage = () => {
             phone: "5493541620535",
             verified: true,
             worker: {
-              fileAvatar: "https://firebasestorage.googleapis.com/v0/b/contrateme-img.appspot.com/o/IMG_20220815_164736_478.jpg?alt=media&token=43515303-f124-4857-8a94-5dd2048a83c4",
               category: "mecanico",
               desc: "Soy Juan, de 22 años y trabajo como Mecanico junto a mi padre desde los 14 años.",
               province: "Mendoza, Argentina",
@@ -89,28 +88,23 @@ const HomePage = () => {
   }, []);
 
   const handleFilterChange = (category) => {
-    console.log("Categoría seleccionada:", category);
     setLoading(true);
-  
+
     const lowerCaseCategory = category.toLowerCase();
-    console.log("Categoría en minúsculas:", lowerCaseCategory);
-  
-    // Filtrar usuarios
+    setSelectedCategory(category);
+
     const usersToShow =
       lowerCaseCategory === "todos"
         ? allUsers
-        : allUsers.filter((user) => {
-            const userCategory = user.worker?.category?.toLowerCase();
-            console.log("Categoría del usuario:", userCategory);
-            return userCategory === lowerCaseCategory;
-          });
-  
-    console.log("Usuarios filtrados:", usersToShow);
+        : allUsers.filter(
+            (user) => user.worker.category.toLowerCase() === lowerCaseCategory
+          );
+
+    console.log("Filtered users:", usersToShow);
     setFilteredUsers(usersToShow);
-    setSelectedCategory(category); // Actualiza la categoría seleccionada
     setLoading(false);
   };
-  
+
   const handleLoadMoreClick = () => {
     setLoading(true);
 
