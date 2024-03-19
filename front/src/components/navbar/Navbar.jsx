@@ -9,9 +9,8 @@ function NavBar() {
   return (
     <>
       <Navbar
-        className="bg-[#1995AD] border-gray-200 dark:bg-gray-900"
+        className="bg-[#1995AD] border-gray-200"
         fluid
-        rounded
       >
         <Navbar.Brand href="/">
           <img src={Logo} className="mr-3 h-16 sm:h-9 " alt="Contratame Logo" />

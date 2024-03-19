@@ -20,6 +20,10 @@ export const GlobalStyle = createGlobalStyle`
     list-style-type: none;
 }
 
+.container {
+  min-height: calc(100vh - 300px);
+}
+
 
 `;
 

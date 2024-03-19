@@ -10,7 +10,9 @@ function App() {
     <AuthProvider>
       <Router>
         < NavBar />
-          < Public />
+        <div className="container">
+          <Public />
+        </div>
          <Footer />
       </Router>
     </AuthProvider>
