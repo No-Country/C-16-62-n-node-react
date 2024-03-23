@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, logIn, addWorkerData, verifyUser, updateWorkerData, getUsers } from '../controllers/auth'; 
+import { registerUser, logIn, addWorkerData, verifyUser, updateWorkerData, getUsers, getWorkerUsers } from '../controllers/auth'; 
 import { check } from "express-validator"; 
 import { collectErrors } from "../middlewares/collectErrors"; 
 import { createCheckSchema } from "express-validator/src/middlewares/schema";
@@ -22,6 +22,7 @@ router.post("/registerUser", [
 ], registerUser)
 
 router.get("/:userId", getUsers)
+router.get("/workers", getWorkerUsers) // ruta para obtener solo los usuarios trabajadores
 router.post("/login", [
     check ("email", "faltó el email").isEmail(),
     check ("password", "la contraseña debe contener al menos 6 carácteres").isLength({ min: 6 }),
