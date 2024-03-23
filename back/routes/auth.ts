@@ -10,7 +10,7 @@ import { emailNotExist } from "../helpers/validations";
 
 const router = Router ()
 
-router.post("/registerUser", [
+router.post("/register", [
     check ("name", "te falto el nombre").not().isEmpty(),
     check ("email", "faltó el email").isEmail(),
     check ("phone", "te faltó el teléfono").isNumeric(),
