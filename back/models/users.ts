@@ -16,7 +16,16 @@ export interface IUser extends Document {
     worker?: IWorker;
     code?: string;
     verified?: boolean;
+    reviews: IReview[];
 }
+
+export interface IReview {
+    userId: string; // ID del usuario que dejó la reseña
+    rating: number; // Calificación de la reseña
+    comment: string; // Comentario de la reseña
+}
+
+
 
 const userSchema = new Schema<IUser>({
     name: {
@@ -53,11 +62,46 @@ const userSchema = new Schema<IUser>({
             },
             address:{
                 type: String,
-            }
+            },
+
+            /* reviews: [{
+                userId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Usuario',
+                },
+                rating: {
+                    type: Number,
+                },
+                comment: {
+                    type: String,
+                }
+            }] */
+              
     }, 
      code:{
         type: String
     },
+    verified:{
+        type:Boolean,
+        default:false
+    },
+
+    reviews: [{
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Usuario',
+            required: true
+        },
+        rating: {
+            type: Number,
+            required: true
+        },
+        comment: {
+            type: String,
+            required: true
+        }
+    }],
+    
     verified: {
         type: Boolean,
         default: false

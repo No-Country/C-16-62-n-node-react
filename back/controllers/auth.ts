@@ -1,8 +1,9 @@
-import User, { IUser, IWorker } from "../models/users";
+import User, { IUser, IWorker, IReview } from "../models/users";
 import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 import randomstring from "randomstring"
 import { sendEmail } from "../mailer/mailer";
+
 
 export const registerUser = async (req: Request, res: Response): Promise<void> => {
 
@@ -194,5 +195,21 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
 
 
 }
+export const getWorkerUsers = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const workerUsers = await User.find({ worker: { $exists: true } });
+
+        res.status(200).json(workerUsers.map(user => ({
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            worker: user.worker
+        })));
+    } catch (error) {
+        console.error('Error al obtener los usuarios trabajadores:', error);
+        res.status(500).json({ message: 'Error interno del servidor', error });
+    }
+};
+
 
 
