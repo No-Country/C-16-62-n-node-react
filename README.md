@@ -13,7 +13,7 @@ Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas de
 
 - Front: https://c-16-62-n-node-react-vvlt.vercel.app/
 
-- Back: [https://binance-nocountry.zeabur.app/api/v1/docs/#/](https://binance-nocountry.zeabur.app/api/v1/docs/#/)
+- Back: https://c-16-62-n-node-react.vercel.app/
 
 ---
 
