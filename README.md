@@ -11,9 +11,9 @@ Entendemos que a la hora de hallar el trabajador indicado para ciertas tareas de
 
 ## <img width="40" height="40" src="https://img.icons8.com/cotton/40/movie-beginning--v1.png" alt="movie-beginning--v1"/> LINKS DE DEPLOY
 
-- Front: [https://c-16-62-n-node-react-vvlt.vercel.app/](https://c-16-62-n-node-react-vvlt.vercel.app/)
+- Front: [https://binance-l.netlify.app/](https://binance-l.netlify.app/)
 
-- Back: [https://c-16-62-n-node-react.vercel.app/](https://c-16-62-n-node-react.vercel.app/)
+- Back: [https://binance-nocountry.zeabur.app/api/v1/docs/#/](https://binance-nocountry.zeabur.app/api/v1/docs/#/)
 
 ---
 
