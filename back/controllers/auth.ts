@@ -171,7 +171,7 @@ export const updateWorkerData = async (req: Request, res: Response): Promise<voi
     }
 };
 
-export const getUsers = async (req: Request, res: Response): Promise<void> => {
+  export const getUsers = async (req: Request, res: Response): Promise<void> => {
 
     const userId = req.params.userId;
     try {

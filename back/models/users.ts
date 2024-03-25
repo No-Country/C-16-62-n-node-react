@@ -101,11 +101,7 @@ const userSchema = new Schema<IUser>({
             required: true
         }
     }],
-    
-    verified: {
-        type: Boolean,
-        default: false
-    }
+
 });
 
 userSchema.methods.toJSON = function () {
